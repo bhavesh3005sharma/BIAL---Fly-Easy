@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.fitnesshub.bial_flyeasy.utils.Constants" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="status"
+            type="Integer" />
+
+        <variable
+            name="viewmodel"
+            type="com.fitnesshub.bial_flyeasy.viewModels.AuthViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        app:cardCornerRadius="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <com.agrawalsuneet.dotsloader.loaders.PullInLoader
+                android:id="@+id/progressLoader"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:visibility="@{(status==Constants.IN_PROGRESS)?View.VISIBLE:View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+                app:pullin_animDur="3000"
+                app:pullin_bigCircleRadius="42dp"
+                app:pullin_dotsColor="@color/teal_200"
+                app:pullin_dotsRadius="10dp"
+                app:pullin_useMultipleColors="true" />
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:setStatus="@{status}"
+                app:setTitle="@{title}" />
+
+            <TextView
+                android:id="@+id/textViewRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="Do you want to sign up with the entered credentials?"
+                android:visibility="@{(status==Constants.USER_NOT_FOUND)?View.VISIBLE:View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/dismissButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#FF5722"
+                android:text="Dismiss"
+                android:textColor="@color/white"
+                android:visibility="@{(status!=Constants.IN_PROGRESS)?View.VISIBLE:View.GONE}"
+                app:cornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/signupButton"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRegister" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/signupButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/blue"
+                android:onClick="@{() -> viewmodel.signUp()}"
+                android:text="Sign Up"
+                android:textColor="@color/white"
+                android:visibility="@{(status==Constants.USER_NOT_FOUND)?View.VISIBLE:View.GONE}"
+                app:cornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/dismissButton"
+                app:layout_constraintEnd_toStartOf="@+id/dismissButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dismissButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
