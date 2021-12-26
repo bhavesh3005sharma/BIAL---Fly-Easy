@@ -1,11 +1,11 @@
-package com.fitnesshub.bial_flyeasy.models;
+package com.fitnesshub.bial_flyeasy.models
 
-public class UserModel extends BaseModel {
-    private String name;
-    private String email;
-    private String phone_no;
-    private String aadharcard_no;
-    private String gender;
-    private String address;
-    private int age;
+class UserModel : BaseModel() {
+    var name: String? = null
+    var email: String? = null
+    var phone_no: String? = null
+    var aadharcard_no: String? = null
+    var gender: String? = null
+    var address: String? = null
+    var age = 0
 }

@@ -45,7 +45,9 @@ public class AuthActivity extends AppCompatActivity {
         viewModel.getResponse().observe(this, response -> {
             if (response == null) return;
             if (HelperClass.isNumeric(response)) {
-                if (alertDialog != null && Integer.parseInt(response) == Constants.DISMISS_DIALOGUE)
+                if (alertDialog == null || Integer.parseInt(response) == Constants.IN_PROGRESS)
+                    buildAD();
+                else if (alertDialog != null && Integer.parseInt(response) == Constants.DISMISS_DIALOGUE)
                     alertDialog.dismiss();
                 else {
                     if (Integer.parseInt(response) == Constants.OKAY) {
@@ -64,7 +66,6 @@ public class AuthActivity extends AppCompatActivity {
         });
 
         activityAuthBinding.submitButton.setOnClickListener((v) -> {
-            buildAD();
             viewModel.validateData(
                     activityAuthBinding.editTextEmail.getText().toString(), activityAuthBinding.editTextPassword.getText().toString());
         });
