@@ -14,14 +14,13 @@ import androidx.lifecycle.ViewModelProvider;
 import com.fitnesshub.bial_flyeasy.R;
 import com.fitnesshub.bial_flyeasy.databinding.ActivityAuthBinding;
 import com.fitnesshub.bial_flyeasy.databinding.LayoutProgressBinding;
-import com.fitnesshub.bial_flyeasy.repositories.AuthRepository;
-import com.fitnesshub.bial_flyeasy.retrofit.ApiServices;
-import com.fitnesshub.bial_flyeasy.retrofit.RetrofitClient;
 import com.fitnesshub.bial_flyeasy.utils.Constants;
 import com.fitnesshub.bial_flyeasy.utils.HelperClass;
-import com.fitnesshub.bial_flyeasy.viewModelFactories.AuthViewModelFactory;
 import com.fitnesshub.bial_flyeasy.viewModels.AuthViewModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class AuthActivity extends AppCompatActivity {
     AuthViewModel viewModel;
     AlertDialog alertDialog;
@@ -31,12 +30,8 @@ public class AuthActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_auth);
 
-        ApiServices apiServices = RetrofitClient.getInstance().create(ApiServices.class);
-        AuthRepository repository = new AuthRepository(apiServices);
-        viewModel = new ViewModelProvider(this, new AuthViewModelFactory(repository)).get(AuthViewModel.class);
-
+        viewModel = (new ViewModelProvider(this)).get(AuthViewModel.class);
         activityAuthBinding = DataBindingUtil.setContentView(this, R.layout.activity_auth);
 
         viewModel.displayToastMsg().observe(this, msg ->
