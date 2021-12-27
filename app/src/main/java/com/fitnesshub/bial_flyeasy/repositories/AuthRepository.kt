@@ -5,8 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fitnesshub.bial_flyeasy.retrofit.ApiServices
 import com.fitnesshub.bial_flyeasy.utils.Constants
+import javax.inject.Inject
 
-class AuthRepository(var apiServices: ApiServices) {
+class AuthRepository @Inject constructor(var apiServices: ApiServices) {
     @JvmField
     val statusLiveData = MutableLiveData<String>()
     val response: LiveData<String>
