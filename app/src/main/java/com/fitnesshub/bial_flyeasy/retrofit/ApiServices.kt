@@ -1,17 +1,17 @@
 package com.fitnesshub.bial_flyeasy.retrofit
 
-import com.fitnesshub.bial_flyeasy.models.BaseModel
+import com.fitnesshub.bial_flyeasy.models.ResourceResponse
 import com.fitnesshub.bial_flyeasy.models.UserModel
-import retrofit2.Call
-import retrofit2.http.GET
+import io.reactivex.Flowable
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface ApiServices {
 
-    @GET("/signIn")
-    fun signIn(@Query("email") email: String?, @Query("password") password: String?): Call<UserModel>?
+    @POST("/user/login")
+    fun signIn(@Query("email") email: String?, @Query("password") password: String?): Flowable<ResourceResponse<UserModel>>
 
-    @GET("/signUp")
-    fun signUp(@Query("email") email: String?, @Query("password") password: String?): Call<BaseModel>
+    @POST("/user/signup")
+    fun signUp(@Query("email") email: String?, @Query("password") password: String?): Flowable<ResourceResponse<UserModel>>
 
 }

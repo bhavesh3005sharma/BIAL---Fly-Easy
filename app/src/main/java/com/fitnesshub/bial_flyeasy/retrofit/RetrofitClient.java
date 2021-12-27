@@ -9,6 +9,7 @@ import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
@@ -29,6 +30,7 @@ public class RetrofitClient {
             retrofit = new Retrofit.Builder()
                     .baseUrl(HelperClass.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
         }
         return retrofit;

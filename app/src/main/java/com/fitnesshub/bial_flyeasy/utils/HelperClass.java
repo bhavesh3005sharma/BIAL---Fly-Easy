@@ -6,7 +6,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class HelperClass {
-    public static String BASE_URL = "https://bial-fly-easy/api/";
+    public static final String MY_PREFS_NAME = "codesleep-merntest-prefs";
+    public static String BASE_URL = "https://codesleep-merntest.azurewebsites.net";
 
     public static void toast(Context context, String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();

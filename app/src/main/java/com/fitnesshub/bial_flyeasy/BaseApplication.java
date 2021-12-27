@@ -1,4 +1,4 @@
-package com.fitnesshub.bial_flyeasy.di;
+package com.fitnesshub.bial_flyeasy;
 
 import android.app.Application;
 

@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fitnesshub.bial_flyeasy.R;
+import com.fitnesshub.bial_flyeasy.database.Prefs;
 import com.fitnesshub.bial_flyeasy.databinding.ActivityAuthBinding;
 import com.fitnesshub.bial_flyeasy.databinding.LayoutProgressBinding;
 import com.fitnesshub.bial_flyeasy.utils.Constants;
@@ -37,25 +38,26 @@ public class AuthActivity extends AppCompatActivity {
         viewModel.displayToastMsg().observe(this, msg ->
                 HelperClass.toast(this, msg)
         );
-        viewModel.getResponse().observe(this, response -> {
-            if (response == null) return;
-            if (HelperClass.isNumeric(response)) {
-                if (alertDialog == null || Integer.parseInt(response) == Constants.IN_PROGRESS)
-                    buildAD();
-                else if (alertDialog != null && Integer.parseInt(response) == Constants.DISMISS_DIALOGUE)
-                    alertDialog.dismiss();
-                else {
-                    if (Integer.parseInt(response) == Constants.OKAY) {
-                        sendToHomeScreen();
-                        return;
-                    }
-                    layoutAD.setStatus(Integer.parseInt(response));
-                    layoutAD.setTitle(null);
-                    layoutAD.setViewmodel(viewModel);
+        viewModel.getResponse().observe(this, responseResource -> {
+            if (responseResource == null) return;
+            if (alertDialog == null || responseResource.status == Constants.IN_PROGRESS) {
+                if (alertDialog != null) alertDialog.dismiss();
+                buildAD();
+            } else if (responseResource.status == Constants.DISMISS_DIALOGUE)
+                alertDialog.dismiss();
+            else if (responseResource.status == Constants.OKAY) {
+                if (responseResource.data != null && responseResource.data.getEmail() != null) {
+                    sendToHomeScreen();
+                    // TODO : Shift this saving data to Prefs in Repo
+                    Prefs.setUserLoggedIn(this, true);
+                    Prefs.setToken(this, responseResource.token);
+                    Prefs.SetUserData(this, responseResource.data);
+                } else {
+                    // Todo: Proceed To Profile Edit Page
                 }
             } else {
-                layoutAD.setStatus(Constants.USELESS);
-                layoutAD.setTitle(response);
+                layoutAD.setStatus(responseResource.status);
+                layoutAD.setTitle(responseResource.message);
                 layoutAD.setViewmodel(viewModel);
             }
         });
@@ -88,5 +90,4 @@ public class AuthActivity extends AppCompatActivity {
         alertDialog.getWindow().setBackgroundDrawable(null);
         alertDialog.getWindow().setGravity(Gravity.BOTTOM);
     }
-
 }
