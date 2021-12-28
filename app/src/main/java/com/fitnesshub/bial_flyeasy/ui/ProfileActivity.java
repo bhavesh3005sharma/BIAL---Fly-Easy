@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.fitnesshub.bial_flyeasy.R;
-import com.fitnesshub.bial_flyeasy.database.prefs;
+import com.fitnesshub.bial_flyeasy.database.Prefs;
 import com.fitnesshub.bial_flyeasy.databinding.ActivityProfileBinding;
 import com.fitnesshub.bial_flyeasy.models.CheckList;
 import com.fitnesshub.bial_flyeasy.models.Profile;
@@ -79,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name=""+profileBinding.firstNameEdit.getText().toString()+ profileBinding.lastNameEdit.getText().toString();
-                airportString= prefs.getCity(ProfileActivity.this);
+                airportString= Prefs.getCity(ProfileActivity.this);
                 ArrayList<CheckList> list=new ArrayList<>();
                 viewModel.validateData(new Profile(name,null,profileBinding.ageEdit.getText().toString(),genderString,profileBinding.addressEdit.getText().toString(),airportString,profileBinding.phoneEdit.getText().toString(),profileBinding.aadharEdit.getText().toString(),list));
                 profileBinding.setEdit(false);

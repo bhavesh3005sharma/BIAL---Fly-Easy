@@ -1,7 +1,6 @@
 package com.fitnesshub.bial_flyeasy.retrofit
 
 import com.fitnesshub.bial_flyeasy.models.ResourceResponse
-import com.fitnesshub.bial_flyeasy.models.BaseModel
 import com.fitnesshub.bial_flyeasy.models.Profile
 import com.fitnesshub.bial_flyeasy.models.UserModel
 import io.reactivex.Flowable

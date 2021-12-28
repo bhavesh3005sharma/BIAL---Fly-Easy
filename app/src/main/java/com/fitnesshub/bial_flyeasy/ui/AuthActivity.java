@@ -55,6 +55,7 @@ public class AuthActivity extends AppCompatActivity {
                     Prefs.SetUserData(this, responseResource.data);
                 } else {
                     // Todo: Proceed To Profile Edit Page
+                    sendToProfileScreen();
                 }
             } else {
                 layoutAD.setStatus(responseResource.status);
@@ -70,6 +71,14 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void sendToHomeScreen() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private void sendToProfileScreen() {
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
