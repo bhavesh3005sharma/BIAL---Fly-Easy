@@ -81,6 +81,7 @@
                 android:layout_marginTop="16dp"
                 android:backgroundTint="#FF5722"
                 android:text="Dismiss"
+                android:onClick="@{() -> viewmodel.dismissDialogue()}"
                 android:textColor="@color/white"
                 android:visibility="@{(status!=Constants.IN_PROGRESS)?View.VISIBLE:View.GONE}"
                 app:cornerRadius="20dp"
