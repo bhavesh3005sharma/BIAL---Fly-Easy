@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Profile {
     String name;
     String pictureUrl;
-    int age;
+    String age;
     String gender;
     String address;
     String airport;
@@ -15,7 +15,9 @@ public class Profile {
     String aadharCard;
     ArrayList<CheckList> checkListArrayList;
 
-    public Profile(String name, String pictureUrl, int age, String gender, String address, String airport, String phoneNumber, String aadharCard, ArrayList<CheckList> checkListArrayList) {
+    public Profile() {    }
+
+    public Profile(String name, String pictureUrl, String age, String gender, String address, String airport, String phoneNumber, String aadharCard, ArrayList<CheckList> checkListArrayList) {
         this.name = name;
         this.pictureUrl = pictureUrl;
         this.age = age;
@@ -43,11 +45,11 @@ public class Profile {
         this.pictureUrl = pictureUrl;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

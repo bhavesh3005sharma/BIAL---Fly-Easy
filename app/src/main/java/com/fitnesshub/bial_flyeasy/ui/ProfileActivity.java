@@ -1,51 +1,55 @@
 package com.fitnesshub.bial_flyeasy.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.fitnesshub.bial_flyeasy.R;
+import com.fitnesshub.bial_flyeasy.database.prefs;
+import com.fitnesshub.bial_flyeasy.databinding.ActivityProfileBinding;
+import com.fitnesshub.bial_flyeasy.models.CheckList;
+import com.fitnesshub.bial_flyeasy.models.Profile;
+import com.fitnesshub.bial_flyeasy.repositories.ProfileRepository;
+import com.fitnesshub.bial_flyeasy.retrofit.ApiServices;
+import com.fitnesshub.bial_flyeasy.retrofit.RetrofitClient;
+import com.fitnesshub.bial_flyeasy.utils.HelperClass;
+import com.fitnesshub.bial_flyeasy.viewModelFactories.ProfileViewModelFactory;
+import com.fitnesshub.bial_flyeasy.viewModels.ProfileViewModel;
+
+import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
-    Spinner genderSpinner;
-    String genderString="Female";
-    TextView editProfile,submitProfile,firstNameText,lastNameText,phoneText,ageText,genderText,aadharText,addressText;
-    EditText firstNameEdit,lastNameEdit,phoneEdit,ageEdit,aadharEdit,addressEdit;
-    ImageView addCheckList;
+    String genderString,airportString;
+
+    ProfileViewModel viewModel;
+    ActivityProfileBinding profileBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        genderSpinner=findViewById(R.id.genderSpinner);
-        editProfile=findViewById(R.id.editProfile);
-        submitProfile=findViewById(R.id.submitProfile);
-        firstNameText=findViewById(R.id.firstNameText);
-        firstNameEdit=findViewById(R.id.firstNameEdit);
-        lastNameText=findViewById(R.id.lastNameText);
-        lastNameEdit=findViewById(R.id.lastNameEdit);
-        phoneText=findViewById(R.id.phoneText);
-        phoneEdit=findViewById(R.id.phoneEdit);
-        ageText=findViewById(R.id.ageText);
-        ageEdit=findViewById(R.id.ageEdit);
-        genderText=findViewById(R.id.genderText);
-        aadharText=findViewById(R.id.aadharText);
-        aadharEdit=findViewById(R.id.aadharEdit);
-        addressText=findViewById(R.id.addressText);
-        addressEdit=findViewById(R.id.addressEdit);
-        addCheckList=findViewById(R.id.addCheckList);
+        ApiServices apiServices= RetrofitClient.getInstance().create(ApiServices.class);
+        ProfileRepository repository=new ProfileRepository(apiServices);
+        viewModel=new ViewModelProvider(this,new ProfileViewModelFactory(repository)).get(ProfileViewModel.class);
+
+        profileBinding = DataBindingUtil.setContentView(this,R.layout.activity_profile);
+
+        viewModel.displayToastMsg().observe(this, msg ->
+                HelperClass.toast(this, msg)
+        );
+
 
         String[] gender=new String[]{"Female","Male","Others"};
         ArrayAdapter<String> spinnerAdapter=new ArrayAdapter<String>(ProfileActivity.this,R.layout.support_simple_spinner_dropdown_item,gender);
-        genderSpinner.setAdapter(spinnerAdapter);
-        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        profileBinding.genderSpinner.setAdapter(spinnerAdapter);
+        profileBinding.genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 genderString= adapterView.getItemAtPosition(i).toString();
@@ -57,60 +61,31 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        editProfile.setOnClickListener(new View.OnClickListener() {
+        profileBinding.chooseCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editing();
+                //startActivity(new Intent(this,ActivityChooseCity.class));
             }
         });
 
-        submitProfile.setOnClickListener(new View.OnClickListener() {
+        profileBinding.editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitting();
+                profileBinding.setEdit(true);
             }
         });
 
-    }
+        profileBinding.submitProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name=""+profileBinding.firstNameEdit.getText().toString()+ profileBinding.lastNameEdit.getText().toString();
+                airportString= prefs.getCity(ProfileActivity.this);
+                ArrayList<CheckList> list=new ArrayList<>();
+                viewModel.validateData(new Profile(name,null,profileBinding.ageEdit.getText().toString(),genderString,profileBinding.addressEdit.getText().toString(),airportString,profileBinding.phoneEdit.getText().toString(),profileBinding.aadharEdit.getText().toString(),list));
+                profileBinding.setEdit(false);
+            }
+        });
 
-    public void editing(){
-        editProfile.setVisibility(View.GONE);
-        submitProfile.setVisibility(View.VISIBLE);
-        firstNameText.setVisibility(View.GONE);
-        firstNameEdit.setVisibility(View.VISIBLE);
-        lastNameText.setVisibility(View.GONE);
-        lastNameEdit.setVisibility(View.VISIBLE);
-        phoneText.setVisibility(View.GONE);
-        phoneEdit.setVisibility(View.VISIBLE);
-        ageText.setVisibility(View.GONE);
-        ageEdit.setVisibility(View.VISIBLE);
-        genderText.setVisibility(View.GONE);
-        genderSpinner.setVisibility(View.VISIBLE);
-        aadharText.setVisibility(View.GONE);
-        aadharEdit.setVisibility(View.VISIBLE);
-        addressText.setVisibility(View.GONE);
-        addressEdit.setVisibility(View.VISIBLE);
-        addCheckList.setVisibility(View.VISIBLE);
-    }
-
-    public void submitting(){
-        editProfile.setVisibility(View.VISIBLE);
-        submitProfile.setVisibility(View.GONE);
-        firstNameText.setVisibility(View.VISIBLE);
-        firstNameEdit.setVisibility(View.GONE);
-        lastNameText.setVisibility(View.VISIBLE);
-        lastNameEdit.setVisibility(View.GONE);
-        phoneText.setVisibility(View.VISIBLE);
-        phoneEdit.setVisibility(View.GONE);
-        ageText.setVisibility(View.VISIBLE);
-        ageEdit.setVisibility(View.GONE);
-        genderText.setVisibility(View.VISIBLE);
-        genderSpinner.setVisibility(View.GONE);
-        aadharText.setVisibility(View.VISIBLE);
-        aadharEdit.setVisibility(View.GONE);
-        addressText.setVisibility(View.VISIBLE);
-        addressEdit.setVisibility(View.GONE);
-        addCheckList.setVisibility(View.GONE);
     }
 }
 

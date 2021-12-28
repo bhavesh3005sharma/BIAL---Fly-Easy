@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.fitnesshub.bial_flyeasy.R;
 import com.fitnesshub.bial_flyeasy.databinding.ActivityAuthBinding;
 import com.fitnesshub.bial_flyeasy.databinding.LayoutProgressBinding;
+import com.fitnesshub.bial_flyeasy.models.Profile;
 import com.fitnesshub.bial_flyeasy.utils.Constants;
 import com.fitnesshub.bial_flyeasy.utils.HelperClass;
 import com.fitnesshub.bial_flyeasy.viewModels.AuthViewModel;
@@ -67,7 +68,7 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void sendToHomeScreen() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ProfileActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

@@ -1,9 +1,12 @@
 package com.fitnesshub.bial_flyeasy.retrofit
 
 import com.fitnesshub.bial_flyeasy.models.BaseModel
+import com.fitnesshub.bial_flyeasy.models.Profile
 import com.fitnesshub.bial_flyeasy.models.UserModel
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface ApiServices {
@@ -13,5 +16,9 @@ interface ApiServices {
 
     @GET("/signUp")
     fun signUp(@Query("email") email: String?, @Query("password") password: String?): Call<BaseModel>
+
+    @PUT("/updateProfile")
+    fun updateProfile(@Body()profile: Profile):Call<Int>
+
 
 }
