@@ -12,15 +12,13 @@ import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface ApiServices {
-
     @POST("/user/login")
     fun signIn(@Query("email") email: String?, @Query("password") password: String?): Flowable<ResourceResponse<UserModel>>
 
     @POST("/user/signup")
     fun signUp(@Query("email") email: String?, @Query("password") password: String?): Flowable<ResourceResponse<UserModel>>
 
-    @PUT("/updateProfile")
-    fun updateProfile(@Body()profile: Profile):Call<Int>
-
+    @PUT("/user/updateProfile")
+    fun updateProfile(@Body()userModel: UserModel):Flowable<ResourceResponse<UserModel>>
 
 }

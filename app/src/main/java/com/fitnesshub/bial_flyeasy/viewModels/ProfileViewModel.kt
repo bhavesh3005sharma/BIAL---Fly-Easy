@@ -5,31 +5,30 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fitnesshub.bial_flyeasy.models.Profile
+import com.fitnesshub.bial_flyeasy.models.ResourceResponse
 import com.fitnesshub.bial_flyeasy.models.UserModel
 import com.fitnesshub.bial_flyeasy.repositories.ProfileRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ProfileViewModel (private val profileRepository: ProfileRepository):ViewModel(){
+@HiltViewModel
+class ProfileViewModel @Inject constructor(private val profileRepository: ProfileRepository):ViewModel(){
     private val toast = MutableLiveData<String>()
-    private var profile=Profile()
+    private var userModel:UserModel?=null
 
-    val response: LiveData<String>
+    val response: LiveData<ResourceResponse<UserModel>>
         get() = profileRepository.response
 
-    fun validateData(profile: Profile) {
+    fun validateData(userModel: UserModel) {
         val error: String =
-                if (profile.name.isEmpty()) "Name is Required."
-                else if (profile.age.isEmpty()) "Age is Required."
-                else if (profile.address.isEmpty()) "Address is Required."
-                else if (profile.aadharCard.isEmpty()) "Aadhar Card Number is Required."
-                else if (profile.phoneNumber.isEmpty()) "Phone Number is Required."
-
-
-                else if (profile.phoneNumber.length != 10) "Phone Number should be of 10 digits"
-                else if (profile.aadharCard.length != 12) "Aadhar Card Number should be of 12 digits"
+                if (userModel.name?.isEmpty() == true) "Name is Required."
+                else if (userModel.address?.isEmpty() == true) "Address is Required."
+                else if (userModel.aadharcard_no?.isEmpty() == true) "Aadhar Card Number is Required."
+                else if (userModel.phone_no?.isEmpty() == true) "Phone Number is Required."
                 else "Correct"
         if (error == "Correct") {
-            this.profile=profile;
-            profileRepository.updateProfile(profile)
+            this.userModel=userModel
+            profileRepository.updateProfile(userModel)
         } else toast.setValue(error)
     }
 

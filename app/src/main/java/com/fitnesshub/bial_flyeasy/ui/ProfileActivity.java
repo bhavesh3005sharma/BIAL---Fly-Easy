@@ -15,15 +15,18 @@ import com.fitnesshub.bial_flyeasy.database.Prefs;
 import com.fitnesshub.bial_flyeasy.databinding.ActivityProfileBinding;
 import com.fitnesshub.bial_flyeasy.models.CheckList;
 import com.fitnesshub.bial_flyeasy.models.Profile;
+import com.fitnesshub.bial_flyeasy.models.UserModel;
 import com.fitnesshub.bial_flyeasy.repositories.ProfileRepository;
 import com.fitnesshub.bial_flyeasy.retrofit.ApiServices;
 import com.fitnesshub.bial_flyeasy.retrofit.RetrofitClient;
 import com.fitnesshub.bial_flyeasy.utils.HelperClass;
-import com.fitnesshub.bial_flyeasy.viewModelFactories.ProfileViewModelFactory;
 import com.fitnesshub.bial_flyeasy.viewModels.ProfileViewModel;
 
 import java.util.ArrayList;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ProfileActivity extends AppCompatActivity {
     String genderString,airportString;
 
@@ -33,11 +36,10 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
 
         ApiServices apiServices= RetrofitClient.getInstance().create(ApiServices.class);
         ProfileRepository repository=new ProfileRepository(apiServices);
-        viewModel=new ViewModelProvider(this,new ProfileViewModelFactory(repository)).get(ProfileViewModel.class);
+        viewModel=new ViewModelProvider(this).get(ProfileViewModel.class);
 
         profileBinding = DataBindingUtil.setContentView(this,R.layout.activity_profile);
 
@@ -80,8 +82,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name=""+profileBinding.firstNameEdit.getText().toString()+ profileBinding.lastNameEdit.getText().toString();
                 airportString= Prefs.getCity(ProfileActivity.this);
-                ArrayList<CheckList> list=new ArrayList<>();
-                viewModel.validateData(new Profile(name,null,profileBinding.ageEdit.getText().toString(),genderString,profileBinding.addressEdit.getText().toString(),airportString,profileBinding.phoneEdit.getText().toString(),profileBinding.aadharEdit.getText().toString(),list));
+                viewModel.validateData(new UserModel("","","",true,name,profileBinding.phoneEdit.getText().toString(),profileBinding.aadharEdit.getText().toString(),genderString,profileBinding.addressEdit.getText().toString(),Integer.parseInt(profileBinding.ageEdit.getText().toString())));
                 profileBinding.setEdit(false);
             }
         });
