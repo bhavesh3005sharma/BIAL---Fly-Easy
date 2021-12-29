@@ -10,5 +10,5 @@ data class UserModel(
         var aadharcard_no: String? = null,
         var gender: String? = null,
         var address: String? = null,
-        var age: Int
+        var age: Int = 0
 )

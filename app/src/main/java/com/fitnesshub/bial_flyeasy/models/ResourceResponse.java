@@ -3,11 +3,14 @@ package com.fitnesshub.bial_flyeasy.models;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ResourceResponse<T> {
 
     @NonNull
     public final int status;
 
+    @SerializedName("user_data")
     @Nullable
     public T data;
 

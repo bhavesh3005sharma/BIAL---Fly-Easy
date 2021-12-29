@@ -8,4 +8,5 @@ public class Constants {
     public static int DISMISS_DIALOGUE = 21650;
     public static int USELESS = 21650;
     public static int ERROR = 513482;
+    public static int REGISTRATION_SUCCESS = 4170;
 }

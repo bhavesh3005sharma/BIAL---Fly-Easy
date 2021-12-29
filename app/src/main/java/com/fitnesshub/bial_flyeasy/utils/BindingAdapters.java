@@ -16,6 +16,8 @@ public class BindingAdapters {
                 title = "OOPS, You entered a Wrong Password!\n Try Again";
             else if (status == Constants.OKAY) title = "Hurray!!  We are ready to go now.";
             else if (status == Constants.ERROR) title = "OOPS!!  Error Occurred.";
+            else if (status == Constants.REGISTRATION_SUCCESS)
+                title = "User Registered Successfully. Proceed to Login.";
         }
 
         textView.setText(title);

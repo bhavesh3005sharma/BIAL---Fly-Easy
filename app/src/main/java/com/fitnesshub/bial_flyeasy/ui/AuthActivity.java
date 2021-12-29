@@ -15,7 +15,6 @@ import com.fitnesshub.bial_flyeasy.R;
 import com.fitnesshub.bial_flyeasy.database.Prefs;
 import com.fitnesshub.bial_flyeasy.databinding.ActivityAuthBinding;
 import com.fitnesshub.bial_flyeasy.databinding.LayoutProgressBinding;
-import com.fitnesshub.bial_flyeasy.models.Profile;
 import com.fitnesshub.bial_flyeasy.utils.Constants;
 import com.fitnesshub.bial_flyeasy.utils.HelperClass;
 import com.fitnesshub.bial_flyeasy.viewModels.AuthViewModel;
@@ -47,15 +46,12 @@ public class AuthActivity extends AppCompatActivity {
             } else if (responseResource.status == Constants.DISMISS_DIALOGUE)
                 alertDialog.dismiss();
             else if (responseResource.status == Constants.OKAY) {
-                if (responseResource.data != null && responseResource.data.getEmail() != null) {
-                    sendToHomeScreen();
-                    // TODO : Shift this saving data to Prefs in Repo
-                    Prefs.setUserLoggedIn(this, true);
-                    Prefs.setToken(this, responseResource.token);
-                    Prefs.SetUserData(this, responseResource.data);
+                if (responseResource.data != null) {
+                    if (responseResource.data.getProfileCompleted()) sendToHomeScreen();
+                    else sendToProfileScreen();
                 } else {
-                    // Todo: Proceed To Profile Edit Page
-                    sendToProfileScreen();
+                    layoutAD.setStatus(Constants.REGISTRATION_SUCCESS);
+                    layoutAD.setTitle(null);
                 }
             } else {
                 layoutAD.setStatus(responseResource.status);
@@ -70,7 +66,9 @@ public class AuthActivity extends AppCompatActivity {
         });
     }
 
-    private void sendToHomeScreen() {
+    private void sendToProfileScreen() {
+        HelperClass.toast(this, "InComplete Profile");
+        // Todo: Proceed To Profile Edit Page
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -78,8 +76,9 @@ public class AuthActivity extends AppCompatActivity {
         finish();
     }
 
-    private void sendToProfileScreen() {
-        Intent intent = new Intent(this, ProfileActivity.class);
+    private void sendToHomeScreen() {
+        HelperClass.toast(this, "Complete Profile");
+        Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -92,7 +91,6 @@ public class AuthActivity extends AppCompatActivity {
         builder.setView(layoutAD.getRoot());
         alertDialog = builder.create();
         alertDialog.setCancelable(false);
-        layoutAD.dismissButton.setOnClickListener((v) -> alertDialog.dismiss());
         layoutAD.setStatus(Constants.IN_PROGRESS);
         layoutAD.setViewmodel(viewModel);
         alertDialog.show();
