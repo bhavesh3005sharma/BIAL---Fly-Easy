@@ -18,6 +18,10 @@
         <variable
             name="viewmodel"
             type="com.fitnesshub.bial_flyeasy.viewModels.AuthViewModel" />
+
+        <variable
+            name="viewModelProfile"
+            type="com.fitnesshub.bial_flyeasy.viewModels.ProfileViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"

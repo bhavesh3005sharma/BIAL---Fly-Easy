@@ -19,6 +19,6 @@ interface ApiServices {
     fun signUp(@Query("email") email: String?, @Query("password") password: String?): Flowable<ResourceResponse<UserModel>>
 
     @PUT("/user/updateProfile")
-    fun updateProfile(@Body()userModel: UserModel):Flowable<ResourceResponse<UserModel>>
+    fun updateProfile(@Body()userModel: UserModel):Flowable<ResourceResponse<Unit>>
 
 }

@@ -20,14 +20,16 @@ class ProfileRepository @Inject constructor(var apiServices: ApiServices) {
         get() = statusLiveData
 
 
-    fun updateProfile(userModel: UserModel){
+    fun updateProfile(userModel: UserModel):LiveData<ResourceResponse<Unit>>{
+        var liveData=MutableLiveData<ResourceResponse<Unit>>()
         statusLiveData.value= ResourceResponse(Constants.IN_PROGRESS,null,null)
         val source=LiveDataReactiveStreams.fromPublisher(apiServices.updateProfile(userModel)
                 .onErrorReturn(Function { t: Throwable? ->
-                    val errorUser = ResourceResponse<UserModel>(Constants.ERROR, null, t?.message)
+                    val errorUser = ResourceResponse<Unit>(Constants.ERROR, null, t?.message)
                     errorUser
                 })
                 .subscribeOn(Schedulers.io()))
-        statusLiveData.value = source.value
+        //statusLiveData.value = source.value
+        return liveData
     }
 }
