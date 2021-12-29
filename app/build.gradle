@@ -65,6 +65,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     // dependency for converting from json to POJO and vice versa
     implementation 'com.google.code.gson:gson:2.8.6'
+    // retrofit loggin 23-12-20
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
 
     // Dots Loading Animations
     implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4'
