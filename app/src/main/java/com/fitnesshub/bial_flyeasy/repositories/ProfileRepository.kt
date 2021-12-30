@@ -16,7 +16,7 @@ import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class ProfileRepository @Inject constructor(var apiServices: ApiServices) {
+class ProfileRepository @Inject constructor(var apiServices: ApiServices,var prefs: Prefs) {
     @JvmField
     val statusLiveData = MutableLiveData<ResourceResponse<UserModel>>()
     val response: LiveData<ResourceResponse<UserModel>>
@@ -33,7 +33,7 @@ class ProfileRepository @Inject constructor(var apiServices: ApiServices) {
                 })
                 .subscribeOn(Schedulers.io()))
         if(source.value?.status==200){
-            Prefs.SetUserData(userModel)
+            prefs.SetUserData(userModel)
             liveData.value = source.value
         }
         return liveData
@@ -48,7 +48,7 @@ class ProfileRepository @Inject constructor(var apiServices: ApiServices) {
                 })
                 .subscribeOn(Schedulers.io()))
         if(source.value?.status==200){
-            Prefs.SetUserData(userModel)
+            prefs.SetUserData(userModel)
             liveData.value = source.value
         }
         return liveData

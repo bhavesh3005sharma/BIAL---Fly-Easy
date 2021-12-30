@@ -68,7 +68,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         profileBinding.submitProfile.setOnClickListener(view -> {
             String name=""+profileBinding.firstNameEdit.getText().toString();
-            UserModel userModel=Prefs.getUser();
+            Prefs prefs=new Prefs(this);
+            UserModel userModel=prefs.getUser();
             LiveData<ResourceResponse<Unit>> responseLiveData= viewModel.validateData(new UserModel(userModel.get_id(),userModel.getEmail(),userModel.getPassword(),true,name,profileBinding.phoneEdit.getText().toString(),profileBinding.aadharEdit.getText().toString(),genderString,profileBinding.addressEdit.getText().toString(),Integer.parseInt(profileBinding.ageEdit.getText().toString())));
             responseLiveData.observe(this,responseResource->{
                 if (responseResource == null) return;
@@ -135,7 +136,8 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        UserModel userModel=Prefs.getUser();
+        Prefs prefs=new Prefs(this);
+        UserModel userModel=prefs.getUser();
         MediatorLiveData<ResourceResponse<UserModel>> responseLiveData= viewModel.getUserData(userModel);
         responseLiveData.observe(this,responseResource -> {
             if (responseResource == null) return;

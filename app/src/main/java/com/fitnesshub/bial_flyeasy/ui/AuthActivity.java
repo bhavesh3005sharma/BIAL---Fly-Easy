@@ -67,7 +67,7 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void sendToProfileScreen() {
-        HelperClass.toast(this, "InComplete Profile");
+        HelperClass.toast(this, "Incomplete Profile");
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

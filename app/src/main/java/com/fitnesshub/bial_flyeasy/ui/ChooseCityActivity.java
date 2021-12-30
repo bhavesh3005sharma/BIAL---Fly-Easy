@@ -32,7 +32,8 @@ int airportInt;
         cityBinding.submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Prefs.setCity(airportInt);
+                Prefs prefs=new Prefs(ChooseCityActivity.this);
+                prefs.setCity(airportInt);
                 if(fromProfile)finish();
                 else sendToHomeScreen();
             }
