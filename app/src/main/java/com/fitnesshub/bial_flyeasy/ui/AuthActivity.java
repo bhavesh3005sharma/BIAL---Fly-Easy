@@ -97,4 +97,24 @@ public class AuthActivity extends AppCompatActivity {
         alertDialog.getWindow().setBackgroundDrawable(null);
         alertDialog.getWindow().setGravity(Gravity.BOTTOM);
     }
+
+    @Override
+    protected void onStart() {
+        if (viewModel.isUserLoggedIn()) {
+//            sendToHomeScreen();
+        }
+        super.onStart();
+    }
+
+    @Override
+    protected void onPause() {
+        if (alertDialog != null) alertDialog.dismiss();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (alertDialog != null) alertDialog.dismiss();
+        super.onDestroy();
+    }
 }
