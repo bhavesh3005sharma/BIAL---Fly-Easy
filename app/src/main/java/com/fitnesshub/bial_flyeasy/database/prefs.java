@@ -9,8 +9,6 @@ import com.google.gson.Gson;
 
 import javax.inject.Inject;
 
-import hilt_aggregated_deps._dagger_hilt_android_internal_modules_ApplicationContextModule;
-
 public class Prefs {
 
     private final Context context;
