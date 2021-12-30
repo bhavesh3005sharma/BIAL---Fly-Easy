@@ -3,7 +3,10 @@ package com.fitnesshub.bial_flyeasy.repositories
 import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.fitnesshub.bial_flyeasy.database.Prefs
+import com.fitnesshub.bial_flyeasy.models.AuthModel
 import com.fitnesshub.bial_flyeasy.models.Profile
 import com.fitnesshub.bial_flyeasy.models.ResourceResponse
 import com.fitnesshub.bial_flyeasy.models.UserModel
@@ -29,7 +32,25 @@ class ProfileRepository @Inject constructor(var apiServices: ApiServices) {
                     errorUser
                 })
                 .subscribeOn(Schedulers.io()))
-        //statusLiveData.value = source.value
+        if(source.value?.status==200){
+            Prefs.SetUserData(userModel)
+            liveData.value = source.value
+        }
+        return liveData
+    }
+
+    fun getUserData(userModel: UserModel):MediatorLiveData<ResourceResponse<UserModel>>{
+        var liveData=MediatorLiveData<ResourceResponse<UserModel>>()
+        val source=LiveDataReactiveStreams.fromPublisher(apiServices.getProfile(userModel)
+                .onErrorReturn(Function { t: Throwable? ->
+                    val errorUser = ResourceResponse<UserModel>(Constants.ERROR, null, t?.message)
+                    errorUser
+                })
+                .subscribeOn(Schedulers.io()))
+        if(source.value?.status==200){
+            Prefs.SetUserData(userModel)
+            liveData.value = source.value
+        }
         return liveData
     }
 }

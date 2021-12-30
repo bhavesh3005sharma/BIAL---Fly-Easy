@@ -9,4 +9,5 @@ public class Constants {
     public static int USELESS = 21650;
     public static int ERROR = 513482;
     public static int REGISTRATION_SUCCESS = 4170;
+    public static String[] airportCode=new String[]{"BLR","BOM","DEL","MAA","CCU","HYD"};
 }

@@ -21,4 +21,7 @@ interface ApiServices {
     @PUT("/user/updateProfile")
     fun updateProfile(@Body()userModel: UserModel):Flowable<ResourceResponse<Unit>>
 
+    @POST("/user/getProfile")
+    fun getProfile(@Body userModel: UserModel): Flowable<ResourceResponse<UserModel>>
+
 }

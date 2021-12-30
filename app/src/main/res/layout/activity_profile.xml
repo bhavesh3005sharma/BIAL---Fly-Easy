@@ -121,25 +121,6 @@
                                 android:id="@+id/firstNameEdit"
                                 android:fontFamily="monospace"
                                 android:textStyle="bold"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textSize="20sp"
-                                android:visibility="@{(edit==false)?View.VISIBLE:View.GONE}"
-                                android:text="Sridhar"
-                                android:id="@+id/lastNameText"
-                                android:textColor="@color/black"
-                                android:fontFamily="monospace"/>
-                            <EditText
-                                android:paddingTop="5dp"
-                                android:textAppearance="?android:attr/textAppearanceSmallInverse"
-                                android:visibility="@{(edit==true)?View.VISIBLE:View.GONE}"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textSize="15sp"
-                                android:text="Sridhar"
-                                android:id="@+id/lastNameEdit"
-                                android:fontFamily="monospace"/>
                         </LinearLayout>
                         <View
                             android:layout_width="2dp"
