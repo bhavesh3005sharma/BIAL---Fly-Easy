@@ -5,19 +5,24 @@
         <variable
             name="viewmodel"
             type="com.fitnesshub.bial_flyeasy.viewModels.ProfileViewModel" />
-
         <variable
             name="edit"
             type="Boolean" />
+        <variable
+            name="userModel"
+            type="com.fitnesshub.bial_flyeasy.models.UserModel" />
+        <variable
+            name="airport"
+            type="String" />
+
     </data>
-
-
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
+        android:id="@+id/constraintLayout"
         android:background="#F1F1F3"
         tools:context=".ui.ProfileActivity">
         <ScrollView
@@ -107,7 +112,7 @@
                                 android:layout_height="wrap_content"
                                 android:visibility="@{(edit==false)?View.VISIBLE:View.GONE}"
                                 android:textSize="20sp"
-                                android:text="Pranitha"
+                                android:text="@{userModel.name}"
                                 android:id="@+id/firstNameText"
                                 android:textColor="@color/black"
                                 android:fontFamily="monospace"
@@ -117,7 +122,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="20sp"
-                                android:text="Pranitha"
+                                android:text="@{userModel.name}"
                                 android:id="@+id/firstNameEdit"
                                 android:fontFamily="monospace"
                                 android:textStyle="bold"/>
@@ -151,7 +156,7 @@
                                     android:textColor="@color/black"
                                     android:textStyle="bold"
                                     android:id="@+id/city"
-                                    android:text="Bengaluru"/>
+                                    android:text="@{airport}"/>
                                 <ImageView
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
@@ -197,10 +202,8 @@
                             android:layout_height="wrap_content"
                             android:textSize="20sp"
                             android:visibility="@{(edit==false)?View.VISIBLE:View.GONE}"
-                            android:text="9600021114"
-                            android:inputType="number"
+                            android:text="@{userModel.phone_no}"
                             android:id="@+id/phoneText"
-                            android:textColor="@color/black"
                             android:fontFamily="monospace"/>
                         <EditText
                             android:layout_width="0dp"
@@ -209,8 +212,8 @@
                             android:textSize="20sp"
                             android:visibility="@{(edit==true)?View.VISIBLE:View.GONE}"
                             android:id="@+id/phoneEdit"
-                            android:text="9600021114"
-                            android:textColor="@color/black"
+                            android:text="@{userModel.phone_no}"
+                            android:inputType="number"
                             android:fontFamily="monospace"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -255,20 +258,18 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="20sp"
                                 android:visibility="@{(edit==false)?View.VISIBLE:View.GONE}"
-                                android:text="20"
-                                android:inputType="number"
+                                android:text="@{``+userModel.age}"
                                 android:id="@+id/ageText"
-                                android:textColor="@color/black"
                                 android:fontFamily="monospace"/>
                             <EditText
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:textSize="20sp"
+                                android:text="@{``+userModel.age}"
+                                android:inputType="number"
                                 android:visibility="@{(edit==true)?View.VISIBLE:View.GONE}"
                                 android:id="@+id/ageEdit"
-                                android:text="20"
-                                android:textColor="@color/black"
                                 android:fontFamily="monospace"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -305,7 +306,6 @@
                                 android:visibility="@{(edit==false)?View.VISIBLE:View.GONE}"
                                 android:text="Female"
                                 android:id="@+id/genderText"
-                                android:textColor="@color/black"
                                 android:fontFamily="monospace"/>
                             <Spinner
                                 android:layout_width="0dp"
@@ -315,7 +315,6 @@
                                 android:visibility="@{(edit==true)?View.VISIBLE:View.GONE}"
                                 android:spinnerMode="dropdown"
                                 android:id="@+id/genderSpinner"
-                                android:textColor="@color/black"
                                 android:fontFamily="monospace"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -342,8 +341,8 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:textSize="20sp"
-                            android:text="Aadhar Card No"
                             android:textStyle="bold"
+                            android:text="Aadhar Card No"
                             android:textColor="@color/black"
                             android:fontFamily="monospace"/>
                         <TextView
@@ -352,9 +351,8 @@
                             android:layout_height="wrap_content"
                             android:textSize="20sp"
                             android:visibility="@{(edit==false)?View.VISIBLE:View.GONE}"
-                            android:text="1234 2345 1234"
+                            android:text="@{userModel.aadharcard_no}"
                             android:id="@+id/aadharText"
-                            android:textColor="@color/black"
                             android:fontFamily="monospace"/>
                         <EditText
                             android:layout_width="0dp"
@@ -363,9 +361,8 @@
                             android:textSize="20sp"
                             android:visibility="@{(edit==true)?View.VISIBLE:View.GONE}"
                             android:id="@+id/aadharEdit"
-                            android:text="1234 2345 1234"
+                            android:text="@{userModel.aadharcard_no}"
                             android:inputType="number"
-                            android:textColor="@color/black"
                             android:fontFamily="monospace"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -397,10 +394,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="20sp"
-                            android:text=""
+                            android:text="@{userModel.address}"
                             android:visibility="@{(edit==false)?View.VISIBLE:View.GONE}"
                             android:id="@+id/addressText"
-                            android:textColor="@color/black"
                             android:fontFamily="monospace"/>
                         <EditText
                             android:layout_width="match_parent"
@@ -408,8 +404,8 @@
                             android:textSize="20sp"
                             android:visibility="@{(edit==true)?View.VISIBLE:View.GONE}"
                             android:id="@+id/addressEdit"
-                            android:text="1234 2345 1234"
-                            android:textColor="@color/black"
+                            android:inputType="textCapSentences"
+                            android:text="@{userModel.address}"
                             android:fontFamily="monospace"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -420,6 +416,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="monospace"
                     android:text="DEFAULT CHECKLIST"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/addressCard"
                     android:id="@+id/text2"/>
@@ -430,7 +427,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/addressCard"
                     android:id="@+id/addCheckList"
-                    android:visibility="@{(edit==true)?View.VISIBLE:View.GONE}"
+                    android:visibility="gone"
                     android:src="@drawable/ic_baseline_add_24"
                     app:tint="#005FF9" />
                 <androidx.cardview.widget.CardView
@@ -440,6 +437,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="15dp"
                     android:padding="20dp"
+                    android:visibility="gone"
                     android:id="@+id/checklistCard"
                     android:background="@color/white"
                     app:cardCornerRadius="12dp">

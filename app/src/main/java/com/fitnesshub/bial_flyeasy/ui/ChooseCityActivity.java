@@ -19,11 +19,12 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ChooseCityActivity extends AppCompatActivity {
 ActivityChooseCityBinding cityBinding;
 int airportInt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cityBinding=DataBindingUtil.setContentView(ChooseCityActivity.this,R.layout.activity_choose_city);
 
-        cityBinding = DataBindingUtil.setContentView(this,R.layout.activity_choose_city);
         spinner();
 
         Intent intent=getIntent();
@@ -34,7 +35,7 @@ int airportInt;
             public void onClick(View view) {
                 Prefs prefs=new Prefs(ChooseCityActivity.this);
                 prefs.setCity(airportInt);
-                if(fromProfile)finish();
+                if(fromProfile)sendToProfileScreen();
                 else sendToHomeScreen();
             }
         });
@@ -42,6 +43,14 @@ int airportInt;
 
     private void sendToHomeScreen() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private void sendToProfileScreen() {
+        Intent intent = new Intent(this, ProfileActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

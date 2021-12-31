@@ -101,11 +101,10 @@ public class AuthActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         if (viewModel.isUserLoggedIn()) {
-//            sendToHomeScreen();
+            sendToHomeScreen();
         }
         super.onStart();
     }
-
     @Override
     protected void onPause() {
         if (alertDialog != null) alertDialog.dismiss();

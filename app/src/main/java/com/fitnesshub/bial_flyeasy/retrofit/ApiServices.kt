@@ -4,11 +4,8 @@ import com.fitnesshub.bial_flyeasy.models.AuthModel
 import com.fitnesshub.bial_flyeasy.models.ResourceResponse
 import com.fitnesshub.bial_flyeasy.models.UserModel
 import io.reactivex.Flowable
-import retrofit2.http.Body
-import retrofit2.http.POST
-import retrofit2.http.PUT
 import retrofit2.Call
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiServices {
 
@@ -21,7 +18,7 @@ interface ApiServices {
     @PUT("/user/updateProfile")
     fun updateProfile(@Body()userModel: UserModel):Flowable<ResourceResponse<Unit>>
 
-    @POST("/user/getProfile")
-    fun getProfile(@Body userModel: UserModel): Flowable<ResourceResponse<UserModel>>
+    @GET("/user/getProfile")
+    fun getProfile(@Query("_id") id : String?): Flowable<ResourceResponse<UserModel>>
 
 }
