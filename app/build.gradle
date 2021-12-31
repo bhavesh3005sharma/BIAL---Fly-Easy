@@ -102,4 +102,8 @@ dependencies {
     // Reactive Streams (convert Observable to LiveData)
     def reactivestreams_version = "1.1.1"
     implementation "android.arch.lifecycle:reactivestreams:$reactivestreams_version"
+
+    //SnackBar at top
+    implementation 'com.github.Redman1037:TSnackBar:V2.0.0'
+
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,7 +15,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
+import com.androidadvance.topsnackbar.TSnackbar;
 import com.fitnesshub.bial_flyeasy.R;
 import com.fitnesshub.bial_flyeasy.database.Prefs;
 import com.fitnesshub.bial_flyeasy.databinding.ActivityProfileBinding;
@@ -131,14 +134,20 @@ public class ProfileActivity extends AppCompatActivity {
             setGender(responseResource.data.getGender());
             profileBinding.setAirport(airportString);
             if(responseResource.status==Constants.OKAY){
-                Snackbar snackbar=Snackbar.make(profileBinding.constraintLayout,"Synced with the Server!", Snackbar.LENGTH_LONG);
-                snackbar.setTextColor(getResources().getColor(R.color.white));
-                snackbar.setBackgroundTint(getResources().getColor(R.color.green));
+                TSnackbar snackbar = TSnackbar.make(findViewById(android.R.id.content), "Synced with the Server Successfully!", TSnackbar.LENGTH_LONG);
+                View snackbarView = snackbar.getView();
+                snackbarView.setBackgroundColor(Color.GREEN);
+                TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+                snackbar.show();
             }
             else if(responseResource.status==Constants.ERROR){
-                Snackbar snackbar=Snackbar.make(profileBinding.constraintLayout,"Syncing with the Server Failed!", Snackbar.LENGTH_LONG);
-                snackbar.setTextColor(getResources().getColor(R.color.white));
-                snackbar.setBackgroundTint(getResources().getColor(R.color.red));
+                TSnackbar snackbar = TSnackbar.make(findViewById(android.R.id.content), "Syncing with the Server Failed!", TSnackbar.LENGTH_LONG);
+                View snackbarView = snackbar.getView();
+                snackbarView.setBackgroundColor(Color.RED);
+                TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+                snackbar.show();
             }
         });
     }
