@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile"/>
+    <item
+        android:id="@+id/nav_checkList"
+        android:icon="@drawable/ic_checklist"
+        android:title="Your Checklist"/>
+    <item
+        android:id="@+id/nav_bookFlight"
+        android:icon="@drawable/ic_flight"
+        android:title="Search and Book Flights"/>
+
+    <item
+        android:id="@+id/nav_latestBookings"
+        android:icon="@drawable/ic_airplane_ticket"
+        android:title="Latest Bookings"/>
+    <item
+        android:id="@+id/nav_maps"
+        android:icon="@drawable/ic_maps"
+        android:title="Maps and Wayfinding"/>
+    <item
+        android:id="@+id/nav_food"
+        android:icon="@drawable/ic_food"
+        android:title="Order Food"/>
+    <item
+        android:id="@+id/nav_cab"
+        android:icon="@drawable/ic_cab"
+        android:title="Book a Cab"/>
+    <item
+        android:id="@+id/nav_shops"
+        android:icon="@drawable/ic_shops"
+        android:title="Airport Shops"/>
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="Logout"/>
+
+
+
+</menu>

@@ -6,9 +6,9 @@ data class UserModel(
         var password: String? = null,
         var profileCompleted: Boolean? = false,
         var name: String? = null,
-        var phone_no: String? = null,
-        var aadharcard_no: String? = null,
+        var phone: String? = null,
+        var aadharNo: String? = null,
         var gender: String? = null,
-        var address: String? = null,
+        var homeCityAddress: String? = null,
         var age: Int = 0
 )

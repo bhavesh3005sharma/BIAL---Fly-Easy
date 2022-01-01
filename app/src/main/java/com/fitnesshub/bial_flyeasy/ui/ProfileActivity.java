@@ -71,14 +71,16 @@ public class ProfileActivity extends AppCompatActivity {
                     if (responseResource.status == Constants.OKAY) {
                         sendToHomeScreen();
                         HelperClass.toast(this, "Updated Successfully");
+                        profileBinding.setEdit(false);
 
                     } else {
                         buildAD();
                     }
+                    HelperClass.toast(this,""+responseResource.status);
                 });
-                profileBinding.setEdit(false);
             }
-            else HelperClass.toast(this,res);
+            else
+                HelperClass.toast(this,res);
         });
 
     }

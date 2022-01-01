@@ -15,10 +15,10 @@ interface ApiServices {
     @POST("/user/signup")
     fun signUp(@Body authModel: AuthModel): Flowable<ResourceResponse<UserModel>>
 
-    @PUT("/user/updateProfile")
-    fun updateProfile(@Body()userModel: UserModel):Flowable<ResourceResponse<Unit>>
+    @PATCH("/user/{id}")
+    fun updateProfile(@Path("id")_id:String?,@Body()userModel: UserModel):Flowable<ResourceResponse<Unit>>
 
-    @GET("/user/getProfile")
+    @GET("/user")
     fun getProfile(@Query("_id") id : String?): Flowable<ResourceResponse<UserModel>>
 
 }

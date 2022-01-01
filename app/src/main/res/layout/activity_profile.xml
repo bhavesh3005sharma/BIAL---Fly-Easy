@@ -202,7 +202,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="20sp"
                             android:visibility="@{(edit==false)?View.VISIBLE:View.GONE}"
-                            android:text="@{userModel.phone_no}"
+                            android:text="@{userModel.phone}"
                             android:id="@+id/phoneText"
                             android:fontFamily="monospace"/>
                         <EditText
@@ -212,7 +212,7 @@
                             android:textSize="20sp"
                             android:visibility="@{(edit==true)?View.VISIBLE:View.GONE}"
                             android:id="@+id/phoneEdit"
-                            android:text="@{userModel.phone_no}"
+                            android:text="@{userModel.phone}"
                             android:inputType="number"
                             android:fontFamily="monospace"/>
                     </LinearLayout>
@@ -351,7 +351,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="20sp"
                             android:visibility="@{(edit==false)?View.VISIBLE:View.GONE}"
-                            android:text="@{userModel.aadharcard_no}"
+                            android:text="@{userModel.aadharNo}"
                             android:id="@+id/aadharText"
                             android:fontFamily="monospace"/>
                         <EditText
@@ -361,7 +361,7 @@
                             android:textSize="20sp"
                             android:visibility="@{(edit==true)?View.VISIBLE:View.GONE}"
                             android:id="@+id/aadharEdit"
-                            android:text="@{userModel.aadharcard_no}"
+                            android:text="@{userModel.aadharNo}"
                             android:inputType="number"
                             android:fontFamily="monospace"/>
                     </LinearLayout>
@@ -394,7 +394,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="20sp"
-                            android:text="@{userModel.address}"
+                            android:text="@{userModel.homeCityAddress}"
                             android:visibility="@{(edit==false)?View.VISIBLE:View.GONE}"
                             android:id="@+id/addressText"
                             android:fontFamily="monospace"/>
@@ -405,7 +405,7 @@
                             android:visibility="@{(edit==true)?View.VISIBLE:View.GONE}"
                             android:id="@+id/addressEdit"
                             android:inputType="textCapSentences"
-                            android:text="@{userModel.address}"
+                            android:text="@{userModel.homeCityAddress}"
                             android:fontFamily="monospace"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
