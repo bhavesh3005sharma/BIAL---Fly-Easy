@@ -59,4 +59,16 @@ public class Prefs {
         String json = sharedPreferences.getString("user", null);
         return gson.fromJson(json, UserModel.class);
     }
+
+
+    public int getCityInt() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(HelperClass.MY_PREFS_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt("city", 0);
+    }
+
+    public void setCity(int city) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(HelperClass.MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
+        editor.putInt("city", city);
+        editor.apply();
+    }
 }

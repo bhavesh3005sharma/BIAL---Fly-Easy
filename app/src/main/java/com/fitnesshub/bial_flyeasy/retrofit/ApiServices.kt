@@ -2,8 +2,7 @@ package com.fitnesshub.bial_flyeasy.retrofit
 
 import com.fitnesshub.bial_flyeasy.models.*
 import io.reactivex.Flowable
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiServices {
 
