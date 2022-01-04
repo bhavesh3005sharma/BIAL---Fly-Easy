@@ -8,9 +8,9 @@ import com.google.gson.annotations.SerializedName;
 public class ResourceResponse<T> {
 
     @NonNull
-    public final int status;
+    public int status;
 
-    @SerializedName("user_data")
+    @SerializedName("data")
     @Nullable
     public T data;
 

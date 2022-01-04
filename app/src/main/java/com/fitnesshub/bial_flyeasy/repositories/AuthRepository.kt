@@ -1,6 +1,5 @@
 package com.fitnesshub.bial_flyeasy.repositories
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
@@ -45,7 +44,6 @@ class AuthRepository @Inject constructor(var apiServices: ApiServices, var prefs
                 prefs.isUserLoggedIn = true
                 prefs.token = it.token
                 prefs.SetUserData(it.data)
-                Log.i("AuthRepo", "signIn: " + prefs.token + "\n" + prefs.user + "\n" + prefs.isUserLoggedIn)
             }
         }
     }
@@ -58,6 +56,11 @@ class AuthRepository @Inject constructor(var apiServices: ApiServices, var prefs
                 .onErrorReturn { t: Throwable? ->
                     val errorUser = ResourceResponse<UserModel>(Constants.ERROR, null, t?.message)
                     errorUser
+                }
+                .map {
+                    val data = it
+                    if (data.status == Constants.OKAY) data.status = Constants.REGISTRATION_SUCCESS
+                    data
                 }
                 .subscribeOn(Schedulers.io()))
 

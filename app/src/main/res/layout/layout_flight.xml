@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="flight"
+            type="com.fitnesshub.bial_flyeasy.models.FlightModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_flight_cut_in_middle"
+        android:backgroundTint="@{flight.selected?@color/mdtp_line_background:@color/white}"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/textViewDepartureTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:text="@{flight.departureTime}"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewArrivalTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:text="@{flight.arrivalTime}"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewDepartureTime" />
+
+        <TextView
+            android:id="@+id/textViewSource"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{flight.source}"
+            app:layout_constraintEnd_toEndOf="@+id/textViewDepartureTime"
+            app:layout_constraintStart_toStartOf="@+id/textViewDepartureTime"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDepartureTime" />
+
+        <TextView
+            android:id="@+id/textViewDestination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{flight.destination}"
+            app:layout_constraintEnd_toEndOf="@+id/textViewArrivalTime"
+            app:layout_constraintStart_toStartOf="@+id/textViewArrivalTime"
+            app:layout_constraintTop_toBottomOf="@+id/textViewArrivalTime" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7A7777"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSource" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/textViewSource"
+            app:layout_constraintEnd_toStartOf="@+id/textViewArrivalTime"
+            app:layout_constraintStart_toEndOf="@+id/textViewDepartureTime"
+            app:layout_constraintTop_toTopOf="@+id/textViewDepartureTime"
+            app:srcCompat="@drawable/travelling_airplane" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="15dp"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8">
+
+            <ImageView
+                android:id="@+id/companyImageView"
+                loadImage="@{flight.logo}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/textViewCompany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{flight.company}"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView"
+            app:layout_constraintTop_toTopOf="@+id/materialCardView" />
+
+        <TextView
+            android:id="@+id/textViewPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:text="@{`Rs. `+flight.price}"
+            android:textColor="#FF5722"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewPrice"
+            app:layout_constraintEnd_toStartOf="@+id/textViewPrice"
+            app:layout_constraintStart_toEndOf="@+id/textViewCompany"
+            app:layout_constraintTop_toTopOf="@+id/textViewPrice" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

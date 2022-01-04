@@ -49,8 +49,8 @@ public class AuthActivity extends AppCompatActivity {
                     if (responseResource.data.getProfileCompleted()) sendToHomeScreen();
                     else sendToProfileScreen();
                 } else {
-                    layoutAD.setStatus(Constants.REGISTRATION_SUCCESS);
-                    layoutAD.setTitle(null);
+                    layoutAD.setStatus(Constants.ERROR);
+                    layoutAD.setTitle("User Data Not Found after successful login authentication.");
                 }
             } else {
                 layoutAD.setStatus(responseResource.status);
@@ -100,7 +100,7 @@ public class AuthActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         if (viewModel.isUserLoggedIn()) {
-//            sendToHomeScreen();
+            sendToHomeScreen();
         }
         super.onStart();
     }

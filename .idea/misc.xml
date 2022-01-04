@@ -3,10 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/drawable/ic_calendar.xml" value="0.2074074074074074" />
         <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/drawable/layout_progress.xml" value="0.14814814814814814" />
+        <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/drawable/top_curved_cornor_background.xml" value="0.2074074074074074" />
         <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/layout/activity_auth.xml" value="0.264" />
+        <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/layout/activity_flight_booking.xml" value="0.264" />
         <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/layout/activity_main.xml" value="0.21302083333333333" />
+        <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/layout/activity_search_flight.xml" value="0.264" />
+        <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/layout/content_flight_booking.xml" value="0.18935185185185185" />
+        <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/layout/fragment_first.xml" value="0.18935185185185185" />
+        <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/layout/fragment_flight_list.xml" value="0.18935185185185185" />
+        <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/layout/layout_flight.xml" value="0.264" />
         <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/layout/layout_progress.xml" value="0.264" />
+        <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/layout/layout_toolbar.xml" value="0.4" />
       </map>
     </option>
   </component>
