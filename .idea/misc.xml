@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Pranitha/AndroidStudioProjects/BIAL---Fly-Easy/app/src/main/res/layout/activity_auth.xml" value="0.1" />
+        <entry key="..\:/Users/Pranitha/AndroidStudioProjects/BIAL---Fly-Easy/app/src/main/res/layout/activity_choose_city.xml" value="0.16354166666666667" />
+        <entry key="..\:/Users/Pranitha/AndroidStudioProjects/BIAL---Fly-Easy/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Pranitha/AndroidStudioProjects/BIAL---Fly-Easy/app/src/main/res/layout/activity_profile.xml" value="0.328125" />
+        <entry key="..\:/Users/Pranitha/AndroidStudioProjects/BIAL---Fly-Easy/app/src/main/res/layout/layout_checklist.xml" value="0.15307971014492755" />
+        <entry key="..\:/Users/Pranitha/AndroidStudioProjects/BIAL---Fly-Easy/app/src/main/res/layout/layout_progress.xml" value="0.1" />
         <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/drawable/ic_calendar.xml" value="0.2074074074074074" />
         <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/drawable/layout_progress.xml" value="0.14814814814814814" />
         <entry key="..\:/android studio pfojects/BIALFlyEasy/app/src/main/res/drawable/top_curved_cornor_background.xml" value="0.2074074074074074" />

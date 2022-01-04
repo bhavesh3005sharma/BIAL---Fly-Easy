@@ -16,4 +16,10 @@ interface ApiServices {
     @POST("/flight/search")
     fun searchFlights(@Body searchFlightModel: SearchFlightModel): Flowable<ResourceResponse<ArrayList<FlightModel>>>
 
+    @PUT("/user/updateProfile")
+    fun updateProfile(@Body()userModel: UserModel):Flowable<ResourceResponse<Unit>>
+
+    @GET("/user/getProfile")
+    fun getProfile(@Query("_id") id : String?): Flowable<ResourceResponse<UserModel>>
+
 }

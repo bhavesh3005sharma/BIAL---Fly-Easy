@@ -48,6 +48,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'com.mikhaellopez:circularimageview:4.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
@@ -106,6 +108,10 @@ dependencies {
     // Reactive Streams (convert Observable to LiveData)
     def reactivestreams_version = "1.1.1"
     implementation "android.arch.lifecycle:reactivestreams:$reactivestreams_version"
+
+    //SnackBar at top
+    implementation 'com.github.Redman1037:TSnackBar:V2.0.0'
+
 
     //Picasso to load Image from Url
     implementation 'com.squareup.picasso:picasso:2.71828'

@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fitnesshub.bial_flyeasy.R;
+import com.fitnesshub.bial_flyeasy.database.Prefs;
 import com.fitnesshub.bial_flyeasy.databinding.ActivityAuthBinding;
 import com.fitnesshub.bial_flyeasy.databinding.LayoutProgressBinding;
 import com.fitnesshub.bial_flyeasy.utils.Constants;
@@ -55,6 +56,7 @@ public class AuthActivity extends AppCompatActivity {
             } else {
                 layoutAD.setStatus(responseResource.status);
                 layoutAD.setTitle(responseResource.message);
+                layoutAD.setViewmodel(viewModel);
             }
         });
 
@@ -65,9 +67,8 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void sendToProfileScreen() {
-        HelperClass.toast(this, "InComplete Profile");
-        // Todo: Proceed To Profile Edit Page
-        Intent intent = new Intent(this, MainActivity.class);
+        HelperClass.toast(this, "Incomplete Profile");
+        Intent intent = new Intent(this, ProfileActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -104,7 +105,6 @@ public class AuthActivity extends AppCompatActivity {
         }
         super.onStart();
     }
-
     @Override
     protected void onPause() {
         if (alertDialog != null) alertDialog.dismiss();

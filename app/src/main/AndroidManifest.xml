@@ -22,6 +22,12 @@
             android:label="@string/title_activity_flight_booking"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".ui.ChooseCityActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.ProfileActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.AuthActivity"
             android:exported="true"
             android:screenOrientation="portrait"
