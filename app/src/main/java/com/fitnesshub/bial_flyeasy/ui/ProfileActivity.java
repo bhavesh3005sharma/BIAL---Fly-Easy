@@ -132,10 +132,11 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         viewModel.getUserData().observe(this,responseResource -> {
-            profileBinding.setUserModel(responseResource.data);
-            setGender(responseResource.data.getGender());
-            profileBinding.setAirport(airportString);
+
             if(responseResource.status==Constants.OKAY){
+                profileBinding.setUserModel(responseResource.data);
+                setGender(responseResource.data.getGender());
+                profileBinding.setAirport(airportString);
                 TSnackbar snackbar = TSnackbar.make(findViewById(android.R.id.content), "Synced with the Server Successfully!", TSnackbar.LENGTH_LONG);
                 View snackbarView = snackbar.getView();
                 snackbarView.setBackgroundColor(Color.GREEN);

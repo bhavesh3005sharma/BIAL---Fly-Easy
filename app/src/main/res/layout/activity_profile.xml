@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:padding="10dp"
         android:id="@+id/constraintLayout"
-        android:background="#F1F1F3"
+        android:background="@color/appColour"
         tools:context=".ui.ProfileActivity">
         <ScrollView
             app:layout_constraintStart_toStartOf="parent"
@@ -446,6 +446,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/recyclerView"/>
                 </androidx.cardview.widget.CardView>
+
+
 
 
 

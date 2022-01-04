@@ -1,6 +1,7 @@
 package com.fitnesshub.bial_flyeasy.retrofit
 
 import com.fitnesshub.bial_flyeasy.models.AuthModel
+import com.fitnesshub.bial_flyeasy.models.HomeModel
 import com.fitnesshub.bial_flyeasy.models.ResourceResponse
 import com.fitnesshub.bial_flyeasy.models.UserModel
 import io.reactivex.Flowable
@@ -20,5 +21,8 @@ interface ApiServices {
 
     @GET("/user")
     fun getProfile(@Query("_id") id : String?): Flowable<ResourceResponse<UserModel>>
+
+    @POST("/user/home")
+    fun getData(@Field("userId")id: String?,@Field("airport")airport:String?):Flowable<ResourceResponse<HomeModel>>
 
 }
