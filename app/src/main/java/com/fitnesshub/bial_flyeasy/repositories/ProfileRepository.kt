@@ -1,8 +1,7 @@
 package com.fitnesshub.bial_flyeasy.repositories
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MediatorLiveData
 import com.fitnesshub.bial_flyeasy.database.Prefs
 import com.fitnesshub.bial_flyeasy.models.ResourceResponse
 import com.fitnesshub.bial_flyeasy.models.UserModel
@@ -14,43 +13,49 @@ import javax.inject.Inject
 
 class ProfileRepository @Inject constructor(var apiServices: ApiServices,var prefs: Prefs) {
     @JvmField
-    var userData:MutableLiveData<ResourceResponse<UserModel>> = MutableLiveData()
-
+    var userData=MediatorLiveData<ResourceResponse<UserModel>>()
     init {
-        userData.value?.data =prefs.getUser()
+        initUserDataFromPrefs()
     }
 
-    fun updateProfile(userModel: UserModel):LiveData<ResourceResponse<Unit>>{
-        var liveData=MutableLiveData<ResourceResponse<Unit>>(
-            ResourceResponse(Constants.IN_PROGRESS,null,null))
-        val source=LiveDataReactiveStreams.fromPublisher(apiServices.updateProfile(userModel)
-                .onErrorReturn(Function { t: Throwable? ->
+    private fun initUserDataFromPrefs() {
+        userData.value = ResourceResponse(Constants.USELESS,prefs.user,null)
+    }
+
+    fun updateProfile(userModel: UserModel) : MediatorLiveData<ResourceResponse<Unit>>{
+        val liveData=MediatorLiveData<ResourceResponse<Unit>>()
+        liveData.value = ResourceResponse(Constants.IN_PROGRESS,null,null)
+        val source=LiveDataReactiveStreams.fromPublisher(apiServices.updateProfile(userModel._id,userModel)
+                .onErrorReturn { t: Throwable? ->
                     val errorUser = ResourceResponse<Unit>(Constants.ERROR, null, t?.message)
                     errorUser
-                })
-                .subscribeOn(Schedulers.io()))
-        if(source.value?.status==200){
-            prefs.SetUserData(userModel)
-            userData.value?.data=userModel
+                }
+            .subscribeOn(Schedulers.io()))
+
+        liveData.addSource(source){
+            liveData.value = source.value
+            if(source.value?.status==200){
+                prefs.SetUserData(userModel)
+            }
         }
-        liveData.value = source.value
         return liveData
     }
 
-    fun getUserData():LiveData<ResourceResponse<UserModel>>{
-        var liveData=MutableLiveData<ResourceResponse<UserModel>>(
-            ResourceResponse(Constants.IN_PROGRESS, null, null))
+    fun syncUserData(){
         val source=LiveDataReactiveStreams.fromPublisher(apiServices.getProfile(prefs.user._id)
                 .onErrorReturn(Function { t: Throwable? ->
                     val errorUser = ResourceResponse<UserModel>(Constants.ERROR, null, t?.message)
                     errorUser
                 })
                 .subscribeOn(Schedulers.io()))
-        if(source.value?.status==200){
-            prefs.SetUserData(source.value?.data)
-            userData.value = source.value
+        userData.addSource(source){
+            userData.value=source.value
+            if(source.value?.status==200){
+                prefs.SetUserData(source.value?.data)
+            }
         }
-        liveData.value=source.value
-        return liveData
     }
+
+    fun getUserData() = userData
+    fun getCityInt() = prefs.cityInt
 }

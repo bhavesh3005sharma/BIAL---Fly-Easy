@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,8 @@ import com.fitnesshub.bial_flyeasy.utils.HelperClass;
 import com.fitnesshub.bial_flyeasy.viewModels.ProfileViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Objects;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -37,7 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
     ProfileViewModel viewModel;
     ActivityProfileBinding profileBinding;
     AlertDialog alertDialog;
-
+    private UserModel userModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
         profileBinding = DataBindingUtil.setContentView(this,R.layout.activity_profile);
         spinner();
 
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.title_activity_profile));
         viewModel.displayToastMsg().observe(this, msg -> HelperClass.toast(this, msg));
 
         profileBinding.chooseCity.setOnClickListener(view -> {
@@ -57,21 +61,21 @@ public class ProfileActivity extends AppCompatActivity {
 
         profileBinding.editProfile.setOnClickListener(view -> profileBinding.setEdit(true));
 
-        Prefs prefs=new Prefs(this);
-        if(!prefs.getUser().getProfileCompleted())profileBinding.setEdit(true);
-        airportString=Constants.airportNames[prefs.getCityInt()];
+        airportString=Constants.airportNames[viewModel.getCityInt()];
 
         profileBinding.submitProfile.setOnClickListener(view -> {
             String name=""+profileBinding.firstNameEdit.getText().toString();
-            UserModel userModel=prefs.getUser();
-            UserModel newUserModel=new UserModel(userModel.get_id(),userModel.getEmail(),userModel.getPassword(),true,name,profileBinding.phoneEdit.getText().toString(),profileBinding.aadharEdit.getText().toString(),genderString,profileBinding.addressEdit.getText().toString(),Integer.parseInt(profileBinding.ageEdit.getText().toString()));
+            if(userModel==null || userModel.get_id()==null){
+                HelperClass.toast(this,"User Data is Null");
+                return;
+            }
+            UserModel newUserModel=new UserModel(userModel.get_id(),userModel.getEmail(),userModel.getPassword(),true,name,profileBinding.phoneEdit.getText().toString(),profileBinding.aadharEdit.getText().toString(),genderString,profileBinding.addressEdit.getText().toString(),Integer.parseInt(profileBinding.ageEdit.getText().toString()),userModel.getDefaultCheckList());
             String res= viewModel.validateData(newUserModel);
-            if(res.equals("Correct")) {
+            if(res!=null && res.equals("Correct")) {
                 viewModel.updateProfile(newUserModel).observe(this, responseResource -> {
-                    if (responseResource.status == Constants.OKAY) {
+                    if (responseResource!=null && responseResource.status == Constants.OKAY) {
                         sendToHomeScreen();
                         HelperClass.toast(this, "Updated Successfully");
-
                     } else {
                         buildAD();
                     }
@@ -111,12 +115,9 @@ public class ProfileActivity extends AppCompatActivity {
     private void buildAD() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
         builder.setTitle("Error").setMessage("Not able to process");
-        builder.setCancelable(false).setPositiveButton("Dismiss", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                alertDialog.dismiss();
-                finish();
-            }
+        builder.setCancelable(false).setPositiveButton("Dismiss", (dialogInterface, i) -> {
+            alertDialog.dismiss();
+            finish();
         });
         alertDialog=builder.create();
         alertDialog.show();
@@ -130,29 +131,25 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         viewModel.getUserData().observe(this,responseResource -> {
-            profileBinding.setUserModel(responseResource.data);
+            if(responseResource==null || responseResource.data==null) return;
+            userModel = responseResource.data;
+            profileBinding.setEdit(!responseResource.data.getProfileCompleted());
             setGender(responseResource.data.getGender());
             profileBinding.setAirport(airportString);
-            if(responseResource.status==Constants.OKAY){
-                TSnackbar snackbar = TSnackbar.make(findViewById(android.R.id.content), "Synced with the Server Successfully!", TSnackbar.LENGTH_LONG);
-                View snackbarView = snackbar.getView();
-                snackbarView.setBackgroundColor(Color.GREEN);
-                TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
-                textView.setTextColor(Color.WHITE);
-                snackbar.show();
-            }
-            else if(responseResource.status==Constants.ERROR){
-                TSnackbar snackbar = TSnackbar.make(findViewById(android.R.id.content), "Syncing with the Server Failed!", TSnackbar.LENGTH_LONG);
-                View snackbarView = snackbar.getView();
-                snackbarView.setBackgroundColor(Color.RED);
-                TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
-                textView.setTextColor(Color.WHITE);
-                snackbar.show();
-            }
+            profileBinding.setUserModel(responseResource.data);
+
+            if(responseResource.status==Constants.OKAY)
+                HelperClass.showSnackBar("Synced with the Server Successfully!",this,Color.GREEN);
+            else if(responseResource.status==Constants.ERROR)
+                HelperClass.showSnackBar("Synced with the Server Failed!",this,Color.RED);
         });
     }
 
     private void setGender(String gender) {
+        if(gender==null) {
+            profileBinding.genderSpinner.setSelection(2);
+            return;
+        }
         if(gender.equals("Female"))profileBinding.genderSpinner.setSelection(0);
         else if(gender.equals("Male"))profileBinding.genderSpinner.setSelection(1);
         else profileBinding.genderSpinner.setSelection(2);
