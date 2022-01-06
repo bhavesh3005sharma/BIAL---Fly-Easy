@@ -100,8 +100,9 @@ public class AuthActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        if (viewModel.isUserLoggedIn()) {
-            sendToHomeScreen();
+        if (viewModel.isUserLoggedIn() && viewModel.getUser()!=null) {
+            if (viewModel.getUser().getProfileCompleted()) sendToHomeScreen();
+            else sendToProfileScreen();
         }
         super.onStart();
     }

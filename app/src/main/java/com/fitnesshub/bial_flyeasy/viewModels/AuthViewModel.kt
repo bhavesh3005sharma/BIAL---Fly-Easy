@@ -54,4 +54,6 @@ class AuthViewModel @Inject constructor(private val authRepository: AuthReposito
     fun getResponse(): LiveData<ResourceResponse<UserModel>> = response
 
     fun isUserLoggedIn(): Boolean = authRepository.userLoggedIn
+
+    fun getUser() = authRepository.getUser()
 }

@@ -66,4 +66,6 @@ class AuthRepository @Inject constructor(var apiServices: ApiServices, var prefs
 
         statusLiveData.addSource(source) { statusLiveData.value = it }
     }
+
+    fun getUser() = prefs.user
 }
