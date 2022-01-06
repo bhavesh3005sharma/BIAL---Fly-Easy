@@ -2,12 +2,13 @@
 <layout>
     <data>
         <import type="android.view.View" />
+        <import type="com.fitnesshub.bial_flyeasy.utils.Constants" />
         <variable
             name="viewModel"
             type="com.fitnesshub.bial_flyeasy.viewModels.MainViewModel" />
         <variable
-            name="loading"
-            type="Boolean" />
+            name="status"
+            type="Integer" />
         <variable
             name="homeModel"
             type="com.fitnesshub.bial_flyeasy.models.HomeModel" />
@@ -28,7 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:visibility="gone"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/nav_drawer" />
@@ -115,14 +115,14 @@
             android:id="@+id/progressBar"
             android:layout_width="40dp"
             android:layout_gravity="center"
-            android:visibility="@{(loading==true)?View.VISIBLE:View.GONE"
+            android:visibility="@{(status==Constants.IN_PROGRESS)?View.VISIBLE:View.GONE}"
             android:layout_height="40dp"/>
 
         <ScrollView
             android:layout_width="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:showIn="@layout/app_bar_main"
-            android:visibility="@{(loading==false)?View.VISIBLE:View.GONE"
+            android:visibility="@{(status==Constants.OKAY)?View.VISIBLE:View.GONE}"
             android:background="@color/appColour"
             android:layout_height="match_parent">
 
@@ -138,6 +138,7 @@
                     android:layout_marginVertical="10dp"
                     android:id="@+id/latestBooking"
                     app:cardCornerRadius="15dp"
+                    android:visibility="@{(homeModel.latest_ticket==null)?View.GONE:View.VISIBLE}"
                     android:background="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -151,7 +152,7 @@
                             android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:text="Time flight"
+                            android:text=""
                             android:textSize="20sp"
                             android:fontFamily="monospace"
                             android:id="@+id/time_flightNo"
@@ -167,7 +168,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="BLR - DEL"
+                            android:visibility="@{(homeModel.latest_ticket!=null)?View.VISIBLE:View.GONE}"
+                            android:text="@{homeModel.latest_ticket.flights.get(0).source + `-` + homeModel.latest_ticket.flights.get(0).destination"
                             android:textSize="18sp"
                             android:textColor="@color/black"
                             android:id="@+id/arrDep"
@@ -177,7 +179,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Ticket Comfirmed"
+                            android:text="Ticket Confirmed"
                             android:id="@+id/ticketStatus"
                             android:textColor="@color/green"
                             app:layout_constraintTop_toBottomOf="@id/arrDep"
@@ -188,7 +190,7 @@
                 <!--arrivalDeparture-->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="220dp"
                     android:layout_marginVertical="10dp"
                     android:id="@+id/arrivalDeparture"
                     app:cardCornerRadius="15dp"
@@ -196,7 +198,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/latestBooking">
-
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <com.google.android.material.tabs.TabLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:tabTextAppearance="@style/AppTheme"
+                            android:id="@+id/tabLayout"/>
+                        <androidx.viewpager.widget.ViewPager
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/viewPager"/>
+                    </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <!--wifi-->
@@ -228,6 +243,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="@{(homeModel.wifi_password!=null)?View.VISIBLE:View.GONE}"
                             android:text="@{`Password: ` + homeModel.wifi_password}"
                             app:layout_constraintTop_toBottomOf="@id/cityWifi"
                             app:layout_constraintStart_toStartOf="parent"
@@ -238,7 +254,7 @@
                             android:src="@drawable/ic_wifi"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
+                            app:layout_constraintBottom_toBottomOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -279,6 +295,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="@{(homeModel.guidelines!=null)?View.VISIBLE:View.GONE}"
                             android:text="@{homeModel.guidelines[0]}"
                             android:id="@+id/guidelineBody"
                             app:layout_constraintTop_toBottomOf="@id/guidelinesTitle"
@@ -458,6 +475,7 @@
                             android:text="Check Weather"
                             android:layout_marginTop="10dp"
                             app:cornerRadius="15dp"
+                            android:id="@+id/weatherButton"
                             android:backgroundTint="@color/blue"
                             android:textColor="@color/white"
                             android:textAllCaps="false"/>

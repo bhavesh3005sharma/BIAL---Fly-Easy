@@ -22,6 +22,7 @@ interface ApiServices {
     @GET("/user")
     fun getProfile(@Query("_id") id : String?): Flowable<ResourceResponse<UserModel>>
 
+    @FormUrlEncoded
     @POST("/user/home")
     fun getData(@Field("userId")id: String?,@Field("airport")airport:String?):Flowable<ResourceResponse<HomeModel>>
 

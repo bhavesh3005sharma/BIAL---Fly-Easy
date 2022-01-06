@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout >
+    <data>
+        <variable
+            name="flight"
+            type="com.fitnesshub.bial_flyeasy.models.FlightModel" />
+        <variable
+            name="isArrival"
+            type="Boolean" />
+    </data>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="15dp">
+
+    <LinearLayout
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/flightNo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{flight.flightNo}"
+            android:gravity="center"
+            android:fontFamily="monospace"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/time"
+            android:gravity="center"
+            android:fontFamily="monospace"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{(isArrival==true)?flight.beltNumber:flight.gateNumber}"
+            android:id="@+id/belt"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{flight.status}"
+            android:id="@+id/status"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
+</layout>
