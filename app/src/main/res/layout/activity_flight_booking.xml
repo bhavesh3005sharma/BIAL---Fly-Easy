@@ -216,7 +216,6 @@
                         android:layout_marginHorizontal="40dp"
                         android:layout_marginTop="20dp"
                         android:backgroundTint="@color/blue"
-                        android:onClick="searchFlight"
                         android:text="Search Flight"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
@@ -232,6 +231,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="Round Trip"
+                        android:checked="@{!flight.singleWay}"
                         app:layout_constraintEnd_toEndOf="@+id/cardView"
                         app:layout_constraintTop_toTopOf="parent" />
 

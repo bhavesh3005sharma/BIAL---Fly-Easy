@@ -55,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         profileBinding.chooseCity.setOnClickListener(view -> {
             Intent intent=new Intent(ProfileActivity.this,ChooseCityActivity.class);
-            intent.putExtra("fromProfile",true);
+            intent.putExtra("intentFrom","fromProfile");
             startActivity(intent);
         });
 

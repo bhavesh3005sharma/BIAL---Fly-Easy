@@ -17,15 +17,18 @@ import java.util.*
 class FlightBookingActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private lateinit var binding: ActivityFlightBookingBinding
     private var not_chosen = "Not Chosen"
+    private var tap_to_select = "Tap to Select"
     private var dates: ArrayList<String> = arrayListOf(not_chosen, not_chosen)
     private var searchFlightModel: MutableLiveData<SearchFlightModel> = MutableLiveData(
-            SearchFlightModel(dates, "MAA", "BIAL", "", true))
+            SearchFlightModel(dates, tap_to_select, tap_to_select, "", true))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_flight_booking)
+        if(intent.getSerializableExtra("searchFlightModel_city_choosen")!=null)
+            searchFlightModel.value = intent.getSerializableExtra("searchFlightModel_city_choosen") as SearchFlightModel
+
         departure_date.setOnClickListener { openDatePicker(true) }
         return_date.setOnClickListener { openDatePicker(false) }
         switchIsRoundTrip.setOnCheckedChangeListener { _, checked ->
@@ -39,11 +42,33 @@ class FlightBookingActivity : AppCompatActivity(), DatePickerDialog.OnDateSetLis
         searchFlightModel.observe(this, { binding.flight = it })
         binding.submitButton.setOnClickListener {
             val data = searchFlightModel.value
-            if (data == null || data.source == null || data.destination == null || data.dates[0] == not_chosen || (!data.singleWay && data.dates[1] == not_chosen)) {
-                HelperClass.toast(this, "Provide all details to search flight")
-                return@setOnClickListener
+            if (data != null) {
+                if (data.source == tap_to_select || data.destination == tap_to_select || data.dates[0] == not_chosen || (!data.singleWay && data.dates[1] == not_chosen)) {
+                    HelperClass.toast(this, "Provide all details to search flight")
+                    return@setOnClickListener
+                }
+                if(data.source==data.destination){
+                    HelperClass.toast(this,"Provide different source & destination stations")
+                    return@setOnClickListener
+                }
             }
             searchFlight()
+        }
+
+        binding.source.setOnClickListener{
+            val intent = Intent(this,ChooseCityActivity::class.java)
+            intent.putExtra("intentFrom","FlightBookingActivity_source")
+            intent.putExtra("searchFlightModel",searchFlightModel.value)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
+
+        binding.destination.setOnClickListener{
+            val intent = Intent(this,ChooseCityActivity::class.java)
+            intent.putExtra("intentFrom","FlightBookingActivity_destination")
+            intent.putExtra("searchFlightModel",searchFlightModel.value)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
         }
 
     }
@@ -74,7 +99,7 @@ class FlightBookingActivity : AppCompatActivity(), DatePickerDialog.OnDateSetLis
                 Calendar.getInstance().get(Calendar.MONTH), // Initial month selection
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH) // Initial day selection
         )
-//        datePickerDialog.minDate = Calendar.getInstance()
+        datePickerDialog.minDate = Calendar.getInstance()
         datePickerDialog.accentColor = resources.getColor(R.color.blue)
         datePickerDialog.setOkColor(resources.getColor(R.color.blue))
         datePickerDialog.setCancelColor(resources.getColor(R.color.blue))
