@@ -65,6 +65,22 @@ Prefs prefs;
                 startActivity(intent);
             }
         });
+        activityBinding.orderFoodButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,FoodStoresActivity.class);
+                intent.putExtra("isFood",true);
+                startActivity(intent);
+            }
+        });
+        activityBinding.shopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,FoodStoresActivity.class);
+                intent.putExtra("isFood",false);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

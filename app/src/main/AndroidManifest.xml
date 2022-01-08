@@ -13,9 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.SingleFoodStoreActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.FoodStoresActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.WeatherActivity"
             android:exported="true"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.ChooseCityActivity"
             android:exported="true" />
