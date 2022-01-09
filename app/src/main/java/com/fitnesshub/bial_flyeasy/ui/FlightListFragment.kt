@@ -62,7 +62,7 @@ class FlightListFragment @Inject constructor() : Fragment(), FlightsAdapter.Item
                     adapter.notifyDataSetChanged()
                     if (list.isEmpty()) UIUpdatesModel(status = Constants.NO_DATA_FOUND)
                     else UIUpdatesModel(status = Constants.OKAY)
-                } else UIUpdatesModel(Constants.ERROR, it.message)
+                } else UIUpdatesModel(it.status, it.message)
                 binding.updates = uiUpdates
             })
         }

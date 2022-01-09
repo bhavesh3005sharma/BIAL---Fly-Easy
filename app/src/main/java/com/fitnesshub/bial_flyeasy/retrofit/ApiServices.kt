@@ -29,4 +29,7 @@ interface ApiServices {
     @GET("/ticket/foodItems")
     fun getFoodTicketItems(): Flowable<ResourceResponse<List<FoodItems>>>
 
+    @GET("/user/ticketHistory")
+    fun getTicketBookingHistory(@Query("_id") id : String?): Flowable<ResourceResponse<ArrayList<TicketModel>>>
+
 }

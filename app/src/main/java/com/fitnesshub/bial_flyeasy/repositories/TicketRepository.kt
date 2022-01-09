@@ -2,7 +2,9 @@ package com.fitnesshub.bial_flyeasy.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
+import androidx.lifecycle.MediatorLiveData
 import com.fitnesshub.bial_flyeasy.database.Prefs
+import com.fitnesshub.bial_flyeasy.models.FlightModel
 import com.fitnesshub.bial_flyeasy.models.FoodItems
 import com.fitnesshub.bial_flyeasy.models.ResourceResponse
 import com.fitnesshub.bial_flyeasy.models.TicketModel
@@ -30,5 +32,21 @@ class TicketRepository @Inject constructor(var apiServices: ApiServices,var pref
                 ResourceResponse<List<FoodItems>>(Constants.ERROR, null, t?.message)
             }
             .subscribeOn(Schedulers.io()))
+
+    fun getTicketBookingHistory(): LiveData<ResourceResponse<ArrayList<TicketModel>>> {
+        val response = MediatorLiveData<ResourceResponse<ArrayList<TicketModel>>>()
+        response.value = ResourceResponse(Constants.IN_PROGRESS, null, null)
+        val source = LiveDataReactiveStreams.fromPublisher(apiServices.getTicketBookingHistory(prefs.user._id)
+            // instead of calling onError, do this
+            .onErrorReturn { t: Throwable? ->
+                val errorResponse = ResourceResponse<ArrayList<TicketModel>>(Constants.ERROR, null, t?.message)
+                errorResponse
+            }
+            .subscribeOn(Schedulers.io()))
+        response.addSource(source) {
+            response.value = it
+        }
+        return response
+    }
 
 }

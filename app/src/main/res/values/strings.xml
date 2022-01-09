@@ -3,6 +3,7 @@
     <string name="title_activity_flight_booking">Book Your Flight</string>
     <string name="title_activity_profile">User\'s Profile</string>
     <string name="title_activity_ticket_booking">Confirm Ticket Details</string>
+    <string name="title_activity_ticket_booking_history">Latest Bookings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

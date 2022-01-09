@@ -66,6 +66,12 @@ public class BindingAdapters {
         else view.setVisibility(View.GONE);
     }
 
+    @BindingAdapter("invisible")
+    public static void invisible(View view, boolean b) {
+        if(b) view.setVisibility(View.INVISIBLE);
+        else view.setVisibility(View.VISIBLE);
+    }
+
     @BindingAdapter("setFlightDetails")
     public static void setFlightDetails(TextView textView, FlightModel flight) {
         String text = "No Flight is Selected. Please select flight.";

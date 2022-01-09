@@ -10,10 +10,12 @@ import com.fitnesshub.bial_flyeasy.databinding.ActivityFlightBookingBinding
 import com.fitnesshub.bial_flyeasy.models.SearchFlightModel
 import com.fitnesshub.bial_flyeasy.utils.HelperClass
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_flight_booking.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import java.util.*
 
+@AndroidEntryPoint
 class FlightBookingActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private lateinit var binding: ActivityFlightBookingBinding
     private var not_chosen = "Not Chosen"

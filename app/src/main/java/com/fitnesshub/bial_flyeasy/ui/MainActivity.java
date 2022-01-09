@@ -18,6 +18,6 @@ ActivityMainBinding activityMainBinding;
         activityMainBinding= DataBindingUtil.setContentView(MainActivity.this,R.layout.activity_main);
 
         setContentView(R.layout.activity_main);
-        startActivity(new Intent(this, FlightBookingActivity.class));
+        startActivity(new Intent(this, TicketBookingHistoryActivity.class));
     }
 }

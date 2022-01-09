@@ -24,4 +24,6 @@ class TicketBookingViewModel @Inject constructor(var ticketRepository: TicketRep
 
     fun getTicketStatus() = ticketStatus
 
+    fun getTicketBookingHistory() = ticketRepository. getTicketBookingHistory()
+
 }
