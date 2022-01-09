@@ -1,9 +1,6 @@
 package com.fitnesshub.bial_flyeasy.retrofit
 
-import com.fitnesshub.bial_flyeasy.models.AuthModel
-import com.fitnesshub.bial_flyeasy.models.HomeModel
-import com.fitnesshub.bial_flyeasy.models.ResourceResponse
-import com.fitnesshub.bial_flyeasy.models.UserModel
+import com.fitnesshub.bial_flyeasy.models.*
 import io.reactivex.Flowable
 import retrofit2.Call
 import retrofit2.http.*
@@ -22,8 +19,10 @@ interface ApiServices {
     @GET("/user")
     fun getProfile(@Query("_id") id : String?): Flowable<ResourceResponse<UserModel>>
 
-    @FormUrlEncoded
     @POST("/user/home")
-    fun getData(@Field("userId")id: String?,@Field("airport")airport:String?):Flowable<ResourceResponse<HomeModel>>
+    fun getData(@Body homeRequestModel: HomeRequestModel):Flowable<ResourceResponseHome>
+
+    @GET("/shop/list")
+    fun getShopsList(@Query("type")type:String?):Flowable<ResourceResponse<List<FoodStoreModel>>>
 
 }

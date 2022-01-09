@@ -16,13 +16,14 @@ import com.fitnesshub.bial_flyeasy.models.FlightModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private int tabCount;
     private Context context;
-    ArrayList<FlightModel> arrival,departure;
+    List<FlightModel> arrival,departure;
 
-    public ViewPagerAdapter(@NonNull FragmentManager fragmentManager,int behaviour, Context context, ArrayList<FlightModel> arr, ArrayList<FlightModel> depar) {
+    public ViewPagerAdapter(@NonNull FragmentManager fragmentManager,int behaviour, Context context, List<FlightModel> arr, List<FlightModel> depar) {
         super(fragmentManager, behaviour);
         this.arrival=arr;
         this.departure=depar;

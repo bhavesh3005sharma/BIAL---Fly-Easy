@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.fitnesshub.bial_flyeasy.utils.Constants"/>
+        <import type="android.view.View"/>
         <variable
             name="isFood"
             type="Boolean" />
+        <variable
+            name="status"
+            type="Integer" />
+        <variable
+            name="viewModel"
+            type="com.fitnesshub.bial_flyeasy.viewModels.FoodStoreViewModel" />
     </data>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,7 +25,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <View
             android:id="@+id/imageView"
             android:layout_width="match_parent"
@@ -56,6 +63,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/imageView"/>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_gravity="center"
+            android:visibility="@{(status==Constants.IN_PROGRESS)?View.VISIBLE:View.GONE}"
+            android:layout_height="40dp"/>
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -63,151 +81,18 @@
             android:elevation="20dp"
             android:backgroundTint="@color/white"
             app:cardCornerRadius="20dp"
+            android:visibility="@{(status==Constants.OKAY)?View.VISIBLE:View.GONE}"
             android:paddingHorizontal="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView">
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_marginTop="30dp"
-                android:layout_marginHorizontal="15dp"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_margin="20dp"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_time"
-                    android:id="@+id/image1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{(isFood==true)?`McDonalds`:`Gucci Store`"
-                    android:fontFamily="monospace"
-                    app:layout_constraintStart_toEndOf="@id/image1"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textSize="25sp"
-                    android:layout_margin="20dp"
-                    android:textColor="@color/black"
-                    android:id="@+id/text1"/>
-                <ImageView
-                    android:layout_margin="20dp"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_time"
-                    android:id="@+id/image2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image1"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{(isFood==true)?`Pizza Hut`:`Shoppers Stop`"
-                    android:fontFamily="monospace"
-                    app:layout_constraintStart_toEndOf="@id/image2"
-                    app:layout_constraintTop_toBottomOf="@id/image1"
-                    android:textSize="25sp"
-                    android:layout_margin="20dp"
-                    android:textColor="@color/black"
-                    android:id="@+id/text2"/>
-                <ImageView
-                    android:layout_margin="20dp"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_time"
-                    android:id="@+id/image3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image2"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{(isFood==true)?`Burger King`:`Armani Store`"
-                    android:fontFamily="monospace"
-                    app:layout_constraintStart_toEndOf="@id/image3"
-                    app:layout_constraintTop_toBottomOf="@id/image2"
-                    android:textSize="25sp"
-                    android:layout_margin="20dp"
-                    android:textColor="@color/black"
-                    android:id="@+id/text3"/>
-                <ImageView
-                    android:layout_margin="20dp"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_time"
-                    android:id="@+id/image4"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image3"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{(isFood==true)?`Subway`:`Nike Showroom`"
-                    android:fontFamily="monospace"
-                    app:layout_constraintStart_toEndOf="@id/image4"
-                    app:layout_constraintTop_toBottomOf="@id/image3"
-                    android:textSize="25sp"
-                    android:layout_margin="20dp"
-                    android:textColor="@color/black"
-                    android:id="@+id/text4"/>
-                <ImageView
-                    android:layout_margin="20dp"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_time"
-                    android:id="@+id/image5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image4"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{(isFood==true)?`KFC`:`Sketchers Store`"
-                    android:fontFamily="monospace"
-                    app:layout_constraintStart_toEndOf="@id/image5"
-                    app:layout_constraintTop_toBottomOf="@id/image4"
-                    android:textSize="25sp"
-                    android:layout_margin="20dp"
-                    android:textColor="@color/black"
-                    android:id="@+id/text5"/>
-                <ImageView
-                    android:layout_margin="20dp"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_time"
-                    android:id="@+id/image6"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image5"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{(isFood==true)?`Burger Point`:`Deepika Govind`"
-                    android:fontFamily="monospace"
-                    app:layout_constraintStart_toEndOf="@id/image6"
-                    app:layout_constraintTop_toBottomOf="@id/image5"
-                    android:textSize="25sp"
-                    android:layout_margin="20dp"
-                    android:textColor="@color/black"
-                    android:id="@+id/text6"/>
-                <ImageView
-                    android:layout_margin="20dp"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_time"
-                    android:id="@+id/image7"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image6"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{(isFood==true)?`Taco Bell`:`Carbon Accessories`"
-                    android:fontFamily="monospace"
-                    app:layout_constraintStart_toEndOf="@id/image7"
-                    app:layout_constraintTop_toBottomOf="@id/image6"
-                    android:textSize="25sp"
-                    android:layout_margin="20dp"
-                    android:textColor="@color/black"
-                    android:id="@+id/text7"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="30dp"
+                android:id="@+id/recyclerView"/>
         </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

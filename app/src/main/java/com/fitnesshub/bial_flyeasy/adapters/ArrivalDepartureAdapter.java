@@ -20,13 +20,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ArrivalDepartureAdapter extends RecyclerView.Adapter<ArrivalDepartureAdapter.viewHolder> {
-    ArrayList<FlightModel> list;
+    List<FlightModel> list;
     Context context;
     boolean isArrival;
 
-    public ArrivalDepartureAdapter(Context context,ArrayList<FlightModel> list,boolean isArrival){
+    public ArrivalDepartureAdapter(Context context,List<FlightModel> list,boolean isArrival){
         this.context=context;
         this.list=list;
         this.isArrival=isArrival;
@@ -42,6 +43,7 @@ public class ArrivalDepartureAdapter extends RecyclerView.Adapter<ArrivalDepartu
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         holder.cardBinding.setIsArrival(isArrival);
         holder.cardBinding.setFlight(list.get(position));
+
         DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         String string1 = list.get(position).getArrivalTime();
         String string2=list.get(position).getDepartureTime();

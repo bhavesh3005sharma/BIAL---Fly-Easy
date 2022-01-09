@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fitnesshub.bial_flyeasy.models.HomeModel
 import com.fitnesshub.bial_flyeasy.models.ResourceResponse
+import com.fitnesshub.bial_flyeasy.models.ResourceResponseHome
 import com.fitnesshub.bial_flyeasy.models.UserModel
 import com.fitnesshub.bial_flyeasy.repositories.MainRepository
 import com.fitnesshub.bial_flyeasy.utils.Constants
@@ -15,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val mainRepository: MainRepository):ViewModel(){
     private val toast = MutableLiveData<String>()
-    private val response: MediatorLiveData<ResourceResponse<HomeModel>> = MediatorLiveData()
+    private val response: MediatorLiveData<ResourceResponseHome> = MediatorLiveData()
 
     init {
         response.addSource(mainRepository.response) { response.value = mainRepository.response.value }
@@ -25,7 +26,7 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
         return toast
     }
 
-    fun getResponse(): LiveData<ResourceResponse<HomeModel>> = response
+    fun getResponse(): LiveData<ResourceResponseHome> = response
 
     fun getData(id:String,airport:String){
         mainRepository.getData(id,airport);

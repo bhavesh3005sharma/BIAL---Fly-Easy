@@ -24,6 +24,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
     private static Retrofit retrofit = null;
     private static Prefs prefs = null;
+    // TODO : Bypassed Bearer Token Auth | Correct later on
+    private static String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJoYXZlc2gzMDA1c2hhcm1hQGdtYWlsLmNvbSIsInVzZXJJRCI6IjYxY2FkYTEzNzQ5ODg1MDAyMjEwNDAzMiIsImlhdCI6MTY0MTQ2MzAxNCwiZXhwIjoxNjQ0MDU1MDE0fQ.XF-Ur6jEj8G5o7U4e4gW0nYQ2ERON9zVGpO9kD9z9FU";
 
     @Provides
     @Singleton
@@ -41,7 +43,6 @@ public class RetrofitClient {
     @Provides
     @Singleton
     public static Retrofit getInstance(@ApplicationContext Context context) {
-
         if (retrofit == null) {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -59,7 +60,7 @@ public class RetrofitClient {
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
 
             AuthenticationInterceptor interceptor =
-                    new AuthenticationInterceptor(getPrefs(context).getToken());
+                    new AuthenticationInterceptor(token);
 
             if (!httpClient.interceptors().contains(interceptor))
                 httpClient.addInterceptor(interceptor);

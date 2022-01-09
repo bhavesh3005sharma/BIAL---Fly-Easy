@@ -36,6 +36,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 ActivityMainBinding activityBinding;
 MainViewModel viewModel;
 AlertDialog alertDialog;
-ArrayList<String> guidelines;
+List<String> guidelines;
 Prefs prefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,6 @@ Prefs prefs;
         activityBinding.drawerOpener.setOnClickListener(view -> activityBinding.drawerLayout.openDrawer(GravityCompat.START));
         activityBinding.navView.setNavigationItemSelectedListener(this);
         closeDrawer();
-        //activityBinding.notifications.setOnClickListener(view -> startActivity(new Intent(this,NotificationActivity.class)));
         activityBinding.weatherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,20 +65,20 @@ Prefs prefs;
                 startActivity(intent);
             }
         });
-        activityBinding.orderFoodButton.setOnClickListener(new View.OnClickListener() {
+        activityBinding.orderFoodButton.setOnClickListener(view -> openFoodStoreActivity(true));
+        activityBinding.shopButton.setOnClickListener(view -> openFoodStoreActivity(false));
+        activityBinding.guidelinesButton.setOnClickListener(view -> guidelines());
+        activityBinding.feedbackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,FoodStoresActivity.class);
-                intent.putExtra("isFood",true);
-                startActivity(intent);
-            }
-        });
-        activityBinding.shopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,FoodStoresActivity.class);
-                intent.putExtra("isFood",false);
-                startActivity(intent);
+                if(activityBinding.feedbackEditText.getText().toString().isEmpty()){
+                    activityBinding.feedbackEditText.setError("Feedback cannot be empty");
+                    activityBinding.feedbackEditText.requestFocus();
+                }
+                else {
+                    HelperClass.toast(MainActivity.this,"Feedback submitted successfully");
+                    activityBinding.feedbackEditText.setText("");
+                }
             }
         });
     }
@@ -107,7 +107,34 @@ Prefs prefs;
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-
+            case R.id.nav_home:
+                closeDrawer();
+                break;
+            case R.id.nav_profile:
+                startActivity(new Intent(this,ProfileActivity.class));
+                break;
+            case R.id.nav_bookFlight:
+                //startActivity(new Intent(this,ProfileActivity.class));
+                break;
+            case R.id.nav_latestBookings:
+                //startActivity(new Intent(this,ProfileActivity.class));
+                break;
+            case R.id.nav_maps:
+                //startActivity(new Intent(this,ProfileActivity.class));
+                break;
+            case R.id.nav_food:
+                HelperClass.toast(this,"clicked on food");
+                openFoodStoreActivity(true);
+                break;
+            case R.id.nav_cab:
+                //startActivity(new Intent(this,ProfileActivity.class));
+                break;
+            case R.id.nav_shops:
+                openFoodStoreActivity(false);
+                break;
+            case R.id.nav_logout:
+                //startActivity(new Intent(this,ProfileActivity.class));
+                break;    
         }
         return false;
     }
@@ -115,14 +142,6 @@ Prefs prefs;
     @Override
     protected void onStart() {
         super.onStart();
-        HelperClass.toast(this,""+Constants.airportCode[prefs.getCityInt()]+" "+prefs.getUser().get_id());
-        activityBinding.setStatus(Constants.OKAY);
-        //HomeModel homeModel=new HomeModel("hdcc",null,null,null,null);
-        //activityBinding.setHomeModel(homeModel);
-        activityBinding.cityWifi.setText(""+Constants.airportNames[prefs.getCityInt()] +" WiFi Password");
-
-        //activityBinding.setHomeModel(homeModel);
-        //viewModel.getData(prefs.getUser().get_id(), Constants.airportCode[prefs.getCityInt()]);
         viewModel.getData("61c9526061c3930022ea8fdf","BIAL");
         viewModel.getResponse().observe(this,responseResource->{
             if (responseResource == null) {HelperClass.toast(this,"No response");}
@@ -130,13 +149,13 @@ Prefs prefs;
                 activityBinding.setStatus(Constants.IN_PROGRESS);
             }
             else if (responseResource.status == Constants.OKAY) {
-                activityBinding.cityWifi.setText(Constants.airportNames[prefs.getCityInt()] + " Airport Wifi");
+                activityBinding.setCityName(Constants.airportNames[prefs.getCityInt()]);
                 activityBinding.setStatus(Constants.OKAY);
-                tabLayout(responseResource.data.getArrival_flights(),responseResource.data.getDeparture_flights());
-                activityBinding.setHomeModel(responseResource.data);
-                guidelines=responseResource.data.getGuidelines();
+                activityBinding.setHomeModel(responseResource);
+                tabLayout(responseResource.arrival_flights,responseResource.departure_flights);
+                guidelines=responseResource.guidelines;
             } else {
-                HelperClass.toast(this,responseResource.message + " "+responseResource.status);
+                HelperClass.toast(this, " "+responseResource.status);
                 //finish();
             }
         });
@@ -160,17 +179,23 @@ Prefs prefs;
         StringBuilder stringBuilder = new StringBuilder();
         for (String s: guidelines) {
             stringBuilder.append(s);
-            stringBuilder.append("\n");
+            stringBuilder.append("\n\n");
         }
         layoutBinding.allGuidelines.setText(stringBuilder.toString().trim());
         layoutBinding.dismissButton.setOnClickListener(view -> alertDialog.dismiss());
     }
 
-    private void tabLayout(ArrayList<FlightModel> arrival, ArrayList<FlightModel> departure){
+    private void tabLayout(List<FlightModel> arrival, List<FlightModel> departure){
         activityBinding.tabLayout.addTab(activityBinding.tabLayout.newTab().setText("Tab 1"));
         activityBinding.tabLayout.addTab(activityBinding.tabLayout.newTab().setText("Tab 2"));
         activityBinding.tabLayout.setupWithViewPager(activityBinding.viewPager);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(),activityBinding.tabLayout.getTabCount(), this,arrival,departure);
         activityBinding.viewPager.setAdapter(adapter);
+    }
+    
+    public void openFoodStoreActivity(boolean isFood){
+        Intent intent=new Intent(MainActivity.this,FoodStoresActivity.class);
+        intent.putExtra("isFood",isFood);
+        startActivity(intent);
     }
 }

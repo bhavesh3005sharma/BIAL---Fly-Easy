@@ -17,18 +17,19 @@ import com.fitnesshub.bial_flyeasy.databinding.LayoutArrivalDepartureBinding;
 import com.fitnesshub.bial_flyeasy.models.FlightModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArrivalDepartureFragment extends Fragment {
-    ArrayList<FlightModel> flight;
+    List<FlightModel> flight;
     Context context;
     LayoutArrivalDepartureBinding layoutBinding;
     boolean isArrival;
 
-    public ArrivalDepartureFragment(Context context, ArrayList<FlightModel> flight, boolean isArrival){
+    public ArrivalDepartureFragment(Context context,List<FlightModel> flight, boolean isArrival){
         this.context=context;
         this.flight=flight;
         this.isArrival=isArrival;
-        layoutBinding.setIsArrival(isArrival);
+
     }
 
     @Override
@@ -38,6 +39,7 @@ public class ArrivalDepartureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layoutBinding=DataBindingUtil.inflate(inflater,R.layout.layout_arrival_departure,container,false);
         View view = layoutBinding.getRoot();
+        layoutBinding.setIsArrival(isArrival);
         layoutBinding.recyclerView.setLayoutManager(new LinearLayoutManager(context));
         ArrivalDepartureAdapter adapter=new ArrivalDepartureAdapter(context,flight,isArrival);
         layoutBinding.recyclerView.setAdapter(adapter);
