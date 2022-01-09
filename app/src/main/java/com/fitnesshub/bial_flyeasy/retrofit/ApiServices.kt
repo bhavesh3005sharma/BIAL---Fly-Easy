@@ -21,4 +21,7 @@ interface ApiServices {
     @GET("/user/")
     fun getProfile(@Query("_id") id : String?): Flowable<ResourceResponse<UserModel>>
 
+    @POST("/ticket")
+    fun bookTicket(@Body ticketModel: TicketModel): Flowable<ResourceResponse<Unit>>
+
 }

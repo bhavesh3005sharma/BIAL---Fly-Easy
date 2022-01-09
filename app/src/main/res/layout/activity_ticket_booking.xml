@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.fitnesshub.bial_flyeasy.utils.Constants" />
+
+        <variable
+            name="status"
+            type="Integer" />
+        <variable
+            name="ticket"
+            type="com.fitnesshub.bial_flyeasy.models.TicketModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_theme_color"
+        android:fillViewport="true"
+        tools:context=".ui.TicketBookingActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/include2"
+                layout="@layout/layout_toolbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:cardCornerRadius="40dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include2">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="20dp"
+                        android:elevation="20dp"
+                        android:outlineAmbientShadowColor="#3C87FF"
+                        android:outlineSpotShadowColor="#3C87FF"
+                        app:cardCornerRadius="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/materialTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="FROM"
+                                android:textColor="#A8A8A8"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvSource"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginTop="10dp"
+                                android:gravity="start"
+                                android:text="@{ticket.flights[0].source}"
+                                android:textColor="@color/black"
+                                android:textSize="17sp"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toStartOf="@+id/appCompatImageView"
+                                app:layout_constraintStart_toStartOf="@+id/materialTextView"
+                                app:layout_constraintTop_toBottomOf="@+id/materialTextView" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvSourceCode"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#A8A8A8"
+                                android:text="@{`(`+ticket.flights[0].source+`)`}"
+                                app:layout_constraintStart_toStartOf="@+id/tvSource"
+                                app:layout_constraintTop_toBottomOf="@+id/tvSource" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/appCompatImageView"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/materialTextView3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="To"
+                                android:textColor="#A8A8A8"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvDestination"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:gravity="end"
+                                android:text="@{ticket.flights[0].source}"
+                                android:textColor="@color/black"
+                                android:textSize="17sp"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
+                                app:layout_constraintTop_toBottomOf="@+id/materialTextView3" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvDestinationCode"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:textColor="#A8A8A8"
+                                android:text="@{`(`+ticket.flights[0].destination+`)`}"
+                                app:layout_constraintEnd_toEndOf="@+id/tvDestination"
+                                app:layout_constraintTop_toBottomOf="@+id/tvDestination" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="20dp"
+                        android:elevation="20dp"
+                        android:outlineAmbientShadowColor="#3C87FF"
+                        android:outlineSpotShadowColor="#3C87FF"
+                        app:cardCornerRadius="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cardView">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/materialTextView6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Departure Details"
+                                android:textColor="#A8A8A8"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/flightOneDate"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:gravity="start"
+                                setDate="@{ticket.flights[0].departureTime}"
+                                android:textColor="@color/black"
+                                android:textSize="17sp"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toStartOf="@+id/cardViewCalender"
+                                app:layout_constraintStart_toStartOf="@+id/materialTextView6"
+                                app:layout_constraintTop_toBottomOf="@+id/materialTextView6" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/flightOneTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                setTime="@{ticket.flights[0].departureTime}"
+                                android:textColor="@color/black"
+                                app:layout_constraintStart_toStartOf="@+id/flightOneDate"
+                                app:layout_constraintTop_toBottomOf="@+id/flightOneDate" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/flightOneNo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="@{ticket.flights[0].flightNo}"
+                                android:textColor="@color/black"
+                                app:layout_constraintStart_toStartOf="@+id/flightOneTime"
+                                app:layout_constraintTop_toBottomOf="@+id/flightOneTime" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cardViewCalender"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:elevation="50dp"
+                                android:padding="10dp"
+                                app:cardCornerRadius="20dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:scaleType="centerCrop"
+                                    app:srcCompat="@drawable/ic_calendar" />
+
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/materialTextView7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Return  Details"
+                                android:textColor="#A8A8A8"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/flightTwoDate"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:gravity="end"
+                                setDate="@{(ticket.flights.size()>1)?ticket.flights[1].departureTime:`N/A`}"
+                                android:textColor="@color/black"
+                                android:textSize="17sp"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/cardViewCalender"
+                                app:layout_constraintTop_toBottomOf="@+id/materialTextView7" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/flightTwoTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                setTime="@{(ticket.flights.size()>1)?ticket.flights[1].departureTime:``}"
+                                android:textColor="@color/black"
+                                app:layout_constraintEnd_toEndOf="@+id/flightTwoDate"
+                                app:layout_constraintTop_toBottomOf="@+id/flightTwoDate" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/flightTwoNo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="@{(ticket.flights.size()>1)?ticket.flights[1].flightNo:``}"
+                                android:textColor="@color/black"
+                                app:layout_constraintEnd_toEndOf="@+id/flightTwoTime"
+                                app:layout_constraintTop_toBottomOf="@+id/flightTwoTime" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/submit_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="40dp"
+                        android:backgroundTint="@color/button_bg_enable_disable_color"
+                        android:text="Confirm Ticket Booking"
+                        android:textAllCaps="false"
+                        android:enabled="@{status!=Constants.IN_PROGRESS}"
+                        android:textColor="@color/button_text_enable_disable_color"
+                        android:textSize="15sp"
+                        android:layout_marginTop="20dp"
+                        app:cornerRadius="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardView1" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar3"
+                        style="?android:attr/progressBarStyle"
+                        android:elevation="200dp"
+                        visible="@{status!=Constants.IN_PROGRESS}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

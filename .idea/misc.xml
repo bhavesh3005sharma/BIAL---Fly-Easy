@@ -13,7 +13,12 @@
         <entry key="app/src/main/res/layout/activity_choose_city.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_flight_booking.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_search_flight.xml" value="0.225" />
+        <entry key="app/src/main/res/layout/activity_ticket_booking.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_ticketbooking.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_flight_list.xml" value="0.225" />
         <entry key="app/src/main/res/layout/layout_checklist.xml" value="0.16822916666666668" />
+        <entry key="app/src/main/res/layout/layout_flight.xml" value="0.225" />
       </map>
     </option>
   </component>

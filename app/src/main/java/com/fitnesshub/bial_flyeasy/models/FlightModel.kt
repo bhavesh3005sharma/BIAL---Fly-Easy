@@ -1,5 +1,7 @@
 package com.fitnesshub.bial_flyeasy.models
 
+import java.io.Serializable
+
 data class FlightModel(
         val __v: Int = -1,
         val _id: String? = null,
@@ -16,4 +18,4 @@ data class FlightModel(
         var selected: Boolean = false,
         val price: Int = 2514,
         val logo: String? = null
-)
+) : Serializable

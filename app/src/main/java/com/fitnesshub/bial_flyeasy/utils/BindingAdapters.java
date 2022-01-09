@@ -1,6 +1,7 @@
 package com.fitnesshub.bial_flyeasy.utils;
 
 import android.net.Uri;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +13,10 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.ShapeAppearanceModel;
 import com.squareup.picasso.Picasso;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class BindingAdapters {
     @BindingAdapter(value = {"setStatus", "setTitle"}, requireAll = false)
@@ -43,6 +48,38 @@ public class BindingAdapters {
     @BindingAdapter("loadImage")
     public static void loadImage(ImageView imageView, String uri) {
         Picasso.get().load(Uri.parse(uri)).placeholder(R.drawable.image_plane).into(imageView);
+    }
+
+    @BindingAdapter("setTime")
+    public static void setTime(TextView textView, String date_time) {
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+        try {
+            Date date = format.parse(date_time);
+            System.out.println(date);
+            textView.setText(date.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            textView.setText("N/A");
+        }
+    }
+
+    @BindingAdapter("setDate")
+    public static void setDate(TextView textView, String date_time) {
+        SimpleDateFormat format = new SimpleDateFormat("dd-mmm-yy");
+        try {
+            Date date = format.parse(date_time);
+            System.out.println(date);
+            textView.setText(date.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            textView.setText("N/A");
+        }
+    }
+
+    @BindingAdapter("visible")
+    public static void visible(View view, boolean b) {
+        if(b) view.setVisibility(View.VISIBLE);
+        else view.setVisibility(View.GONE);
     }
 
     @BindingAdapter(value = {"setFlightDetails", "setFlightTime"})
