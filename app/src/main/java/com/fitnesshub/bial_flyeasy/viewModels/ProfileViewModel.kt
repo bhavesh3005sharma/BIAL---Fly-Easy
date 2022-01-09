@@ -3,7 +3,7 @@ package com.fitnesshub.bial_flyeasy.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.fitnesshub.bial_flyeasy.database.Prefs
+import com.fitnesshub.bial_flyeasy.database.Preferences
 import com.fitnesshub.bial_flyeasy.models.ResourceResponse
 import com.fitnesshub.bial_flyeasy.models.UserModel
 import com.fitnesshub.bial_flyeasy.repositories.ProfileRepository
@@ -11,7 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val profileRepository: ProfileRepository,prefs: Prefs):ViewModel(){
+class ProfileViewModel @Inject constructor(private val profileRepository: ProfileRepository,prefs: Preferences):ViewModel(){
     private val toast = MutableLiveData<String>()
 
     fun validateData(userModel: UserModel): String {

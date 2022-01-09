@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.fitnesshub.bial_flyeasy.database.Prefs
+import com.fitnesshub.bial_flyeasy.database.Preferences
 import com.fitnesshub.bial_flyeasy.models.AuthModel
 import com.fitnesshub.bial_flyeasy.models.ResourceResponse
 import com.fitnesshub.bial_flyeasy.models.UserModel
@@ -13,7 +13,7 @@ import com.fitnesshub.bial_flyeasy.utils.Constants
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class AuthRepository @Inject constructor(var apiServices: ApiServices, var prefs: Prefs) {
+class AuthRepository @Inject constructor(var apiServices: ApiServices, var prefs: Preferences) {
     val userLoggedIn: Boolean = prefs.isUserLoggedIn
 
     @JvmField

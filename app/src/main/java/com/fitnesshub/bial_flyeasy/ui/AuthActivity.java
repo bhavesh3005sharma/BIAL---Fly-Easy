@@ -12,7 +12,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fitnesshub.bial_flyeasy.R;
-import com.fitnesshub.bial_flyeasy.database.Prefs;
 import com.fitnesshub.bial_flyeasy.databinding.ActivityAuthBinding;
 import com.fitnesshub.bial_flyeasy.databinding.LayoutProgressBinding;
 import com.fitnesshub.bial_flyeasy.utils.Constants;
@@ -67,7 +66,6 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void sendToProfileScreen() {
-        HelperClass.toast(this, "Incomplete Profile");
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -76,7 +74,6 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void sendToHomeScreen() {
-        HelperClass.toast(this, "Complete Profile");
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

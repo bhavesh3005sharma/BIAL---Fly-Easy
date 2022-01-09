@@ -2,7 +2,7 @@ package com.fitnesshub.bial_flyeasy.repositories
 
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
-import com.fitnesshub.bial_flyeasy.database.Prefs
+import com.fitnesshub.bial_flyeasy.database.Preferences
 import com.fitnesshub.bial_flyeasy.models.ResourceResponse
 import com.fitnesshub.bial_flyeasy.models.UserModel
 import com.fitnesshub.bial_flyeasy.retrofit.ApiServices
@@ -11,7 +11,7 @@ import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class ProfileRepository @Inject constructor(var apiServices: ApiServices,var prefs: Prefs) {
+class ProfileRepository @Inject constructor(var apiServices: ApiServices,var prefs: Preferences) {
     @JvmField
     var userData=MediatorLiveData<ResourceResponse<UserModel>>()
     init {

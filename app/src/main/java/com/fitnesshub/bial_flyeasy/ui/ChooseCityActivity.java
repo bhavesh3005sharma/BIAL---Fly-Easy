@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.fitnesshub.bial_flyeasy.R;
-import com.fitnesshub.bial_flyeasy.database.Prefs;
+import com.fitnesshub.bial_flyeasy.database.Preferences;
 import com.fitnesshub.bial_flyeasy.databinding.ActivityChooseCityBinding;
 import com.fitnesshub.bial_flyeasy.models.SearchFlightModel;
 import com.fitnesshub.bial_flyeasy.utils.Constants;
@@ -64,7 +64,7 @@ public class ChooseCityActivity extends AppCompatActivity {
     }
 
     private void sendToProfileScreen() {
-        Prefs prefs= new Prefs(ChooseCityActivity.this);
+        Preferences prefs= new Preferences(ChooseCityActivity.this);
         prefs.setCity(airportInt);
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

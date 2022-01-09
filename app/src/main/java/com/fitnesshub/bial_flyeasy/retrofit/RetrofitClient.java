@@ -1,10 +1,9 @@
 package com.fitnesshub.bial_flyeasy.retrofit;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.fitnesshub.bial_flyeasy.BuildConfig;
-import com.fitnesshub.bial_flyeasy.database.Prefs;
+import com.fitnesshub.bial_flyeasy.database.Preferences;
 import com.fitnesshub.bial_flyeasy.utils.HelperClass;
 
 import javax.inject.Singleton;
@@ -24,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @InstallIn(SingletonComponent.class)
 public class RetrofitClient {
     private static Retrofit retrofit = null;
-    private static Prefs prefs = null;
+    private static Preferences prefs = null;
     // TODO : Bypassed Bearer Token Auth | Correct later on
     private static String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJoYXZlc2gzMDA1c2hhcm1hQGdtYWlsLmNvbSIsInVzZXJJRCI6IjYxY2FkYTEzNzQ5ODg1MDAyMjEwNDAzMiIsImlhdCI6MTY0MTQ2MzAxNCwiZXhwIjoxNjQ0MDU1MDE0fQ.XF-Ur6jEj8G5o7U4e4gW0nYQ2ERON9zVGpO9kD9z9FU";
 
@@ -36,8 +35,8 @@ public class RetrofitClient {
 
     @Provides
     @Singleton
-    public static Prefs getPrefs(@ApplicationContext Context context) {
-        if (prefs == null) prefs = new Prefs(context);
+    public static Preferences getPrefs(@ApplicationContext Context context) {
+        if (prefs == null) prefs = new Preferences(context);
         return prefs;
     }
 

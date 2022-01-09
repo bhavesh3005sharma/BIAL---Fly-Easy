@@ -32,4 +32,10 @@ interface ApiServices {
     @GET("/user/ticketHistory")
     fun getTicketBookingHistory(@Query("_id") id : String?): Flowable<ResourceResponse<ArrayList<TicketModel>>>
 
+    @POST("/user/home")
+    fun getData(@Body homeRequestModel: HomeRequestModel):Flowable<ResourceResponseHome>
+
+    @GET("/shop/list")
+    fun getShopsList(@Query("type")type:String?):Flowable<ResourceResponse<List<FoodStoreModel>>>
+
 }
