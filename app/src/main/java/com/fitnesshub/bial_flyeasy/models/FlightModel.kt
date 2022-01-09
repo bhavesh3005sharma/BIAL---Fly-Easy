@@ -18,5 +18,6 @@ data class FlightModel(
         var selected: Boolean = false,
         val price: Int = 2514,
         val logo: String? = null,
-        var flightDate : String? =null
+        var flightDate : String? =null,
+        var ticketId : String? = null
 ) : Serializable

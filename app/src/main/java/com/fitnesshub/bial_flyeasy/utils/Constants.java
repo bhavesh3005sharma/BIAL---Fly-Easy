@@ -10,9 +10,11 @@ public class Constants {
     public static int ERROR = 513482;
     public static int REGISTRATION_SUCCESS = 4170;
 
+    public static int BOOKED_TICKET_VIEW = 4672;
+
     public static int NO_DATA_FOUND = 874;
     public static String[] airportCode=new String[]
-            {"BOM","MAA","BIAL","BBI","UDR"};
+            {"BOM","MAA","BLR","BBI","UDR"};
     public static String[] airportNames=new String[]
             {"CSI Airport","Chennai Airport","Bangalore Airport","Bhubaneswar Airport","Udaipur Airport"};
 }

@@ -17,6 +17,7 @@
         <variable
             name="ticket"
             type="com.fitnesshub.bial_flyeasy.models.TicketModel" />
+
     </data>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -210,10 +211,30 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
-                                    android:text="@{ticket.flights[0].flightNo}"
+                                    android:text="@{`Flight No `+ticket.flights[0].flightNo}"
                                     android:textColor="@color/black"
                                     app:layout_constraintStart_toStartOf="@+id/flightOneTime"
                                     app:layout_constraintTop_toBottomOf="@+id/flightOneTime" />
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/flightOneStatus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="@{`Status `+ticket.flights[0].status}"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintStart_toStartOf="@+id/flightOneNo"
+                                    app:layout_constraintTop_toBottomOf="@+id/flightOneNo" />
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/flightOneGateNo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="@{`Gate No. `+ticket.flights[0].gateNumber}"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintStart_toStartOf="@+id/flightOneStatus"
+                                    app:layout_constraintTop_toBottomOf="@+id/flightOneStatus" />
 
                                 <com.google.android.material.card.MaterialCardView
                                     android:id="@+id/cardViewCalender"
@@ -276,10 +297,30 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
-                                    android:text="@{(ticket.flights.size()>1)?ticket.flights[1].flightNo:``}"
+                                    android:text="@{(ticket.flights.size()>1)?`Flight No `+ticket.flights[1].flightNo:``}"
                                     android:textColor="@color/black"
                                     app:layout_constraintEnd_toEndOf="@+id/flightTwoTime"
                                     app:layout_constraintTop_toBottomOf="@+id/flightTwoTime" />
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/flightTwoStatus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="@{(ticket.flights.size()>1)?`Status `+ticket.flights[1].status:``}"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintEnd_toEndOf="@+id/flightTwoNo"
+                                    app:layout_constraintTop_toBottomOf="@+id/flightTwoNo" />
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/flightTwoGateNo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="@{(ticket.flights.size()>1)?`Gate No. `+ticket.flights[1].gateNumber:``}"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintEnd_toEndOf="@+id/flightTwoStatus"
+                                    app:layout_constraintTop_toBottomOf="@+id/flightTwoStatus" />
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -315,6 +356,25 @@
                             android:backgroundTint="@color/button_bg_enable_disable_color"
                             android:enabled="@{status!=Constants.IN_PROGRESS}"
                             android:text="Confirm Ticket Booking"
+                            visible="@{status!=Constants.BOOKED_TICKET_VIEW}"
+                            android:textAllCaps="false"
+                            android:layout_marginTop="20dp"
+                            android:textColor="@color/button_text_enable_disable_color"
+                            android:textSize="15sp"
+                            app:cornerRadius="20dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rv_feed_items" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/checklist_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="40dp"
+                            android:text="View Checklist"
+                            android:enabled="true"
+                            android:backgroundTint="@color/button_bg_enable_disable_color"
+                            visible="@{status==Constants.BOOKED_TICKET_VIEW}"
                             android:textAllCaps="false"
                             android:layout_marginTop="20dp"
                             android:textColor="@color/button_text_enable_disable_color"

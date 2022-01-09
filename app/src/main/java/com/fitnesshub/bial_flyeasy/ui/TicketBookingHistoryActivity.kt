@@ -1,6 +1,7 @@
 package com.fitnesshub.bial_flyeasy.ui
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import com.fitnesshub.bial_flyeasy.R
 import com.fitnesshub.bial_flyeasy.adapters.FlightsAdapter
 import com.fitnesshub.bial_flyeasy.databinding.ActivityTicketBookingHistoryBinding
 import com.fitnesshub.bial_flyeasy.models.FlightModel
+import com.fitnesshub.bial_flyeasy.models.TicketModel
 import com.fitnesshub.bial_flyeasy.models.UIUpdatesModel
 import com.fitnesshub.bial_flyeasy.utils.Constants
 import com.fitnesshub.bial_flyeasy.utils.HelperClass
@@ -24,6 +26,7 @@ class TicketBookingHistoryActivity : AppCompatActivity(), FlightsAdapter.ItemCli
     private lateinit var adapter: FlightsAdapter
     private var flights = ArrayList<FlightModel>()
     private var uiUpdates = UIUpdatesModel(status = Constants.IN_PROGRESS)
+    private var ticketList = mutableListOf<TicketModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +44,14 @@ class TicketBookingHistoryActivity : AppCompatActivity(), FlightsAdapter.ItemCli
             else if (it.status == Constants.OKAY) {
                 if (it.data.isNullOrEmpty()) UIUpdatesModel(status = Constants.NO_DATA_FOUND)
                 else {
+                    ticketList = it.data!!
                     val list = mutableListOf<FlightModel>()
                     for(ticket in it.data!!){
                         if(ticket.datesOfJourney.isNullOrEmpty()) continue
                         var ind = 0
                         for(date in ticket.datesOfJourney!!){
                             ticket.flights?.get(ind)?.flightDate = date
+                            ticket.flights?.get(ind)?.ticketId = ticket._id
                             list.add(ticket.flights?.get(ind++)!!)
                         }
                     }
@@ -70,6 +75,15 @@ class TicketBookingHistoryActivity : AppCompatActivity(), FlightsAdapter.ItemCli
     }
 
     override fun onFlightClick(newSelectedFlightPosition: Int, lastSelectedFlightPosition: Int) {
-        HelperClass.toast(this,flights[newSelectedFlightPosition].flightNo)
+        for(ticket in ticketList){
+            if(ticket._id==flights[newSelectedFlightPosition].ticketId){
+                val intent = Intent(this,TicketBookingActivity::class.java)
+                intent.putExtra("ticketModel",ticket)
+                intent.putExtra("useActivityFor",Constants.BOOKED_TICKET_VIEW)
+                startActivity(intent)
+                return
+            }
+        }
+        HelperClass.toast(this,"Sorry Ticket Not Found")
     }
 }
