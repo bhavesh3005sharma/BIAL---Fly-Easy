@@ -28,7 +28,7 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
 
     fun getResponse(): LiveData<ResourceResponseHome> = response
 
-    fun getData(id:String,airport:String){
-        mainRepository.getData(id,airport);
+    fun getData(){
+        mainRepository.getData()
     }
 }

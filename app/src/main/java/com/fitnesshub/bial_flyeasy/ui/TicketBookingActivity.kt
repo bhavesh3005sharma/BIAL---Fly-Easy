@@ -56,6 +56,7 @@ class TicketBookingActivity : AppCompatActivity() {
                 binding.status = it.status
                 if (it.status != Constants.IN_PROGRESS) HelperClass.toast(this, it.message)
                 if(it.status==Constants.OKAY) {
+                    if(ticketModel.food_details!=null) for(item in ticketModel.food_details!!) item.editable = false
                     val intent = Intent(this,TicketBookingActivity::class.java)
                     intent.putExtra("ticketModel",ticketModel)
                     intent.putExtra("useActivityFor",Constants.BOOKED_TICKET_VIEW)
@@ -67,7 +68,10 @@ class TicketBookingActivity : AppCompatActivity() {
 
             viewModel.getFoodItems().observe(this, {
                 binding.status = it.status
-                if (it.data != null) foodAdapter.setFoodItemsList(it.data!!)
+                if (it.data != null) {
+                    for(item in it.data!!) item.editable = true
+                    foodAdapter.setFoodItemsList(it.data!!)
+                }
             })
 
             binding.submitButton.setOnClickListener {

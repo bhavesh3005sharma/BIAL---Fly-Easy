@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fitnesshub.bial_flyeasy.R;
 import com.fitnesshub.bial_flyeasy.databinding.CardArrivalDepartureBinding;
 import com.fitnesshub.bial_flyeasy.models.FlightModel;
+import com.fitnesshub.bial_flyeasy.utils.HelperClass;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 
 import java.text.DateFormat;
@@ -32,6 +33,7 @@ public class ArrivalDepartureAdapter extends RecyclerView.Adapter<ArrivalDepartu
         this.list=list;
         this.isArrival=isArrival;
     }
+
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,17 +45,8 @@ public class ArrivalDepartureAdapter extends RecyclerView.Adapter<ArrivalDepartu
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         holder.cardBinding.setIsArrival(isArrival);
         holder.cardBinding.setFlight(list.get(position));
-
-        DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        String string1 = list.get(position).getArrivalTime();
-        String string2=list.get(position).getDepartureTime();
-        try {
-            Date result1 = (isArrival==true)?df1.parse(string1):df1.parse(string2);
-            String time=String.valueOf(result1.getTime());
-            holder.cardBinding.time.setText(time);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        if(isArrival) holder.cardBinding.time.setText(HelperClass.getTime(list.get(position).getArrivalTime()));
+        else holder.cardBinding.time.setText(HelperClass.getTime(list.get(position).getDepartureTime()));
     }
 
     @Override

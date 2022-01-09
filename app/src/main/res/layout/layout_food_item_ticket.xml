@@ -40,6 +40,8 @@
                 android:background="@drawable/top_curved_cornor_background"
                 android:gravity="center"
                 android:text="+"
+                visible="@{foodItem.editable}"
+                android:visibility="gone"
                 android:textColor="@color/black" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -58,6 +60,7 @@
                 android:background="@drawable/top_curved_cornor_background"
                 android:gravity="center"
                 android:text="-"
+                visible="@{foodItem.editable}"
                 android:textColor="@color/black" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 

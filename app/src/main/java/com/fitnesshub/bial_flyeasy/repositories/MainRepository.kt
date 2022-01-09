@@ -23,9 +23,9 @@ class MainRepository @Inject constructor(var apiServices: ApiServices,var prefs:
         statusLiveData.addSource(loadingStatus) { statusLiveData.value = loadingStatus.value }
     }
 
-    fun getData(id:String,airport:String){
+    fun getData(){
         loadingStatus.value = ResourceResponseHome(Constants.IN_PROGRESS, null)
-        val source = LiveDataReactiveStreams.fromPublisher(apiServices.getData(HomeRequestModel(id,airport))
+        val source = LiveDataReactiveStreams.fromPublisher(apiServices.getData(HomeRequestModel(prefs.user._id,Constants.airportCode[prefs.cityInt]))
             .onErrorReturn { t: Throwable? ->
                 val errorUser = ResourceResponseHome(Constants.ERROR, t?.message)
                 errorUser

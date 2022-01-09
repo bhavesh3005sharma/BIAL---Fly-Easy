@@ -20,12 +20,17 @@
         <entry key="..\:/Users/Pranitha/AndroidStudioProjects/BIAL---Fly-Easy/app/src/main/res/layout/layout_checklist.xml" value="0.15307971014492755" />
         <entry key="..\:/Users/Pranitha/AndroidStudioProjects/BIAL---Fly-Easy/app/src/main/res/layout/layout_guidelines.xml" value="0.1796875" />
         <entry key="..\:/Users/Pranitha/AndroidStudioProjects/BIAL---Fly-Easy/app/src/main/res/layout/layout_progress.xml" value="0.1" />
+        <entry key="..\:/Users/Pranitha/AndroidStudioProjects/BIAL---Fly-Easy/app/src/main/res/layout/nav_header_main.xml" value="0.6666666666666666" />
+        <entry key="..\:/Users/Pranitha/AndroidStudioProjects/BIAL---Fly-Easy/app/src/main/res/menu/nav_drawer.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/top_curved_cornor_background.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.11666666666666667" />
         <entry key="app/src/main/res/layout/activity_choose_city.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_flight_booking.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_food_stores.xml" value="0.24270833333333333" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.21944444444444444" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_search_flight.xml" value="0.225" />
+        <entry key="app/src/main/res/layout/activity_single_food_store.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/activity_ticket_booking.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_ticket_booking_history.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_ticket_details.xml" value="0.335" />
@@ -36,8 +41,8 @@
         <entry key="app/src/main/res/layout/layout_flight.xml" value="0.25" />
         <entry key="app/src/main/res/layout/layout_food_item_ticket.xml" value="0.375" />
         <entry key="app/src/main/res/layout/layout_ticket.xml" value="0.24270833333333333" />
-        <entry key="..\:/Users/Pranitha/AndroidStudioProjects/BIAL---Fly-Easy/app/src/main/res/layout/nav_header_main.xml" value="0.6666666666666666" />
-        <entry key="..\:/Users/Pranitha/AndroidStudioProjects/BIAL---Fly-Easy/app/src/main/res/menu/nav_drawer.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/layout_toolbar.xml" value="0.24270833333333333" />
+        <entry key="app/src/main/res/menu/nav_drawer.xml" value="0.24270833333333333" />
       </map>
     </option>
   </component>

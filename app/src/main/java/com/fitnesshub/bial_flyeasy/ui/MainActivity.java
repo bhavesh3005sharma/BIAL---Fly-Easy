@@ -20,6 +20,7 @@ import com.fitnesshub.bial_flyeasy.adapters.ViewPagerAdapter;
 import com.fitnesshub.bial_flyeasy.database.Preferences;
 import com.fitnesshub.bial_flyeasy.databinding.ActivityMainBinding;
 import com.fitnesshub.bial_flyeasy.databinding.LayoutGuidelinesBinding;
+import com.fitnesshub.bial_flyeasy.generated.callback.OnClickListener;
 import com.fitnesshub.bial_flyeasy.models.FlightModel;
 import com.fitnesshub.bial_flyeasy.utils.Constants;
 import com.fitnesshub.bial_flyeasy.utils.HelperClass;
@@ -47,29 +48,36 @@ Preferences prefs;
         activityBinding.drawerOpener.setOnClickListener(view -> activityBinding.drawerLayout.openDrawer(GravityCompat.START));
         activityBinding.navView.setNavigationItemSelectedListener(this);
         closeDrawer();
-        activityBinding.weatherButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,WeatherActivity.class);
-                intent.putExtra("cityInt",prefs.getCityInt());
-                startActivity(intent);
-            }
+
+        activityBinding.weatherButton.setOnClickListener(view -> {
+            Intent intent=new Intent(MainActivity.this,WeatherActivity.class);
+            intent.putExtra("cityInt",prefs.getCityInt());
+            startActivity(intent);
+        });
+        activityBinding.searchFlight.setOnClickListener(view -> {
+            Intent intent=new Intent(MainActivity.this,FlightBookingActivity.class);
+            startActivity(intent);
+        });
+        activityBinding.buttonTicketHistory.setOnClickListener(view -> {
+            Intent intent=new Intent(MainActivity.this,TicketBookingHistoryActivity.class);
+            startActivity(intent);
         });
         activityBinding.orderFoodButton.setOnClickListener(view -> openFoodStoreActivity(true));
         activityBinding.shopButton.setOnClickListener(view -> openFoodStoreActivity(false));
         activityBinding.guidelinesButton.setOnClickListener(view -> guidelines());
-        activityBinding.feedbackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(activityBinding.feedbackEditText.getText().toString().isEmpty()){
-                    activityBinding.feedbackEditText.setError("Feedback cannot be empty");
-                    activityBinding.feedbackEditText.requestFocus();
-                }
-                else {
-                    HelperClass.toast(MainActivity.this,"Feedback submitted successfully");
-                    activityBinding.feedbackEditText.setText("");
-                }
+        activityBinding.feedbackButton.setOnClickListener(view -> {
+            if(activityBinding.feedbackEditText.getText().toString().isEmpty()){
+                activityBinding.feedbackEditText.setError("Feedback cannot be empty");
+                activityBinding.feedbackEditText.requestFocus();
             }
+            else {
+                HelperClass.toast(MainActivity.this,"Feedback submitted successfully");
+                activityBinding.feedbackEditText.setText("");
+            }
+        });
+        activityBinding.profile.setOnClickListener(view -> {
+            Intent intent=new Intent(MainActivity.this,ProfileActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -104,35 +112,41 @@ Preferences prefs;
                 startActivity(new Intent(this,ProfileActivity.class));
                 break;
             case R.id.nav_bookFlight:
-                //startActivity(new Intent(this,ProfileActivity.class));
+                startActivity(new Intent(this,FlightBookingActivity.class));
                 break;
             case R.id.nav_latestBookings:
-                //startActivity(new Intent(this,ProfileActivity.class));
+                startActivity(new Intent(this,TicketBookingHistoryActivity.class));
                 break;
             case R.id.nav_maps:
-                //startActivity(new Intent(this,ProfileActivity.class));
+//                startActivity(new Intent(this,ProfileActivity.class));
                 break;
             case R.id.nav_food:
                 HelperClass.toast(this,"clicked on food");
                 openFoodStoreActivity(true);
                 break;
             case R.id.nav_cab:
-                //startActivity(new Intent(this,ProfileActivity.class));
+//                startActivity(new Intent(this,ProfileActivity.class));
                 break;
             case R.id.nav_shops:
                 openFoodStoreActivity(false);
                 break;
-            case R.id.nav_logout:
-                //startActivity(new Intent(this,ProfileActivity.class));
-                break;    
+            case R.id.nav_logout:{
+                Preferences preferences =  new Preferences(this);
+                preferences.setUserLoggedIn(false);
+                Intent intent = new Intent(this,AuthActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
         }
-        return false;
+        return true;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        viewModel.getData("61c9526061c3930022ea8fdf","BIAL");
+        viewModel.getData();
         viewModel.getResponse().observe(this,responseResource->{
             if (responseResource == null) {HelperClass.toast(this,"No response");}
             if (responseResource.status == Constants.IN_PROGRESS) {
@@ -167,6 +181,8 @@ Preferences prefs;
         alertDialog.getWindow().setGravity(Gravity.BOTTOM);
 
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Guidelines for this Airport are : ");
+        stringBuilder.append("\n\n\n");
         for (String s: guidelines) {
             stringBuilder.append(s);
             stringBuilder.append("\n\n");

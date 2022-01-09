@@ -9,12 +9,12 @@ import com.google.gson.Gson;
 
 import javax.inject.Inject;
 
-public class Prefs {
+public class Preferences {
 
     private final Context context;
 
     @Inject
-    public Prefs(Context context) {
+    public Preferences(Context context) {
         this.context = context.getApplicationContext();
     }
 
@@ -59,9 +59,7 @@ public class Prefs {
         String json = sharedPreferences.getString("user", null);
         return gson.fromJson(json, UserModel.class);
     }
-
-
-    public int getCityInt() {
+    public int getCityInt(){
         SharedPreferences sharedPreferences = context.getSharedPreferences(HelperClass.MY_PREFS_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getInt("city", 0);
     }
