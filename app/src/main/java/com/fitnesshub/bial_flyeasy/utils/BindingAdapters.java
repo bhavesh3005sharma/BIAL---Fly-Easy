@@ -1,6 +1,7 @@
 package com.fitnesshub.bial_flyeasy.utils;
 
 import android.net.Uri;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +13,10 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.ShapeAppearanceModel;
 import com.squareup.picasso.Picasso;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class BindingAdapters {
     @BindingAdapter(value = {"setStatus", "setTitle"}, requireAll = false)
@@ -45,14 +50,30 @@ public class BindingAdapters {
         Picasso.get().load(Uri.parse(uri)).placeholder(R.drawable.image_plane).into(imageView);
     }
 
-    @BindingAdapter(value = {"setFlightDetails", "setFlightTime"})
-    public static void setFlightDetails(TextView textView, FlightModel flight, String time) {
+    @BindingAdapter("setTime")
+    public static void setTime(TextView textView, String date_time) {
+        textView.setText(HelperClass.getTime(date_time));
+    }
+
+    @BindingAdapter("setDate")
+    public static void setDate(TextView textView, String date_time) {
+        textView.setText(HelperClass.getDate(date_time));
+    }
+
+    @BindingAdapter("visible")
+    public static void visible(View view, boolean b) {
+        if(b) view.setVisibility(View.VISIBLE);
+        else view.setVisibility(View.GONE);
+    }
+
+    @BindingAdapter("setFlightDetails")
+    public static void setFlightDetails(TextView textView, FlightModel flight) {
         String text = "No Flight is Selected. Please select flight.";
-        if (flight.get_id() != null) {
+        if (flight.get_id()!=null && !flight.get_id().equals("-1")) {
             text = "Flight No. : " + flight.getFlightNo() + "\n" +
                     "Flight Name : " + flight.getCompany() + "\n" +
                     "Price : " + flight.getPrice() + "\n" +
-                    "Flight Time : " + time;
+                    "Flight Time : " + HelperClass.getTime(flight.getDepartureTime());
         }
         textView.setText(text);
     }

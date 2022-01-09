@@ -2,6 +2,8 @@ package com.fitnesshub.bial_flyeasy.retrofit
 
 import com.fitnesshub.bial_flyeasy.models.*
 import io.reactivex.Flowable
+import io.reactivex.Single
+import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiServices {
@@ -20,5 +22,11 @@ interface ApiServices {
 
     @GET("/user/")
     fun getProfile(@Query("_id") id : String?): Flowable<ResourceResponse<UserModel>>
+
+    @POST("/ticket")
+    fun bookTicket(@Body ticketModel: TicketModel): Flowable<ResourceResponse<Unit>>
+
+    @GET("/ticket/foodItems")
+    fun getFoodTicketItems(): Flowable<ResourceResponse<List<FoodItems>>>
 
 }

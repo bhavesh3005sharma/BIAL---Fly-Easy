@@ -1,13 +1,16 @@
 package com.fitnesshub.bial_flyeasy.models
 
+import java.io.Serializable
+
 data class TicketModel(
-    val __v: Int,
-    val _id: String,
-    val booking_user_id: String,
-    val checkList: List<CheckList>,
-    val datesOfJourney: List<String>,
-    val flightNos: List<String>,
-    val flights: List<FlightModel>,
-    val food_details: List<List<FoodDetail>>,
-    val passengers: List<Passenger>
-)
+    var __v: Int? = null,
+    var userId : String? = null,
+    var _id: String? = null,
+    var booking_user_id: String? = null,
+    var checkList: List<CheckList>? = null,
+    var datesOfJourney: List<String>? = null,
+    var flightNos: List<String>? = null,
+    var flights: List<FlightModel>? = null,
+    var food_details: List<FoodItems>? = null,
+    var passengers: List<Passenger>? = null
+) : Serializable

@@ -2,8 +2,8 @@ package com.fitnesshub.bial_flyeasy.models
 
 import java.io.Serializable
 
-data class CheckList(
+data class FoodItems(
     val _id: String,
-    val content: String,
-    val isChecked: Boolean
+    val name: String,
+    var quantity: Int
 ) : Serializable
