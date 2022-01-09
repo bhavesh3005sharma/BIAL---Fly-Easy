@@ -52,28 +52,12 @@ public class BindingAdapters {
 
     @BindingAdapter("setTime")
     public static void setTime(TextView textView, String date_time) {
-        SimpleDateFormat format = new SimpleDateFormat("hh:mm");
-        try {
-            Date date = format.parse(date_time);
-            System.out.println(date);
-            textView.setText(date.toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-            textView.setText("N/A");
-        }
+        textView.setText(HelperClass.getTime(date_time));
     }
 
     @BindingAdapter("setDate")
     public static void setDate(TextView textView, String date_time) {
-        SimpleDateFormat format = new SimpleDateFormat("dd-mmm-yy");
-        try {
-            Date date = format.parse(date_time);
-            System.out.println(date);
-            textView.setText(date.toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-            textView.setText("N/A");
-        }
+        textView.setText(HelperClass.getDate(date_time));
     }
 
     @BindingAdapter("visible")
@@ -82,14 +66,14 @@ public class BindingAdapters {
         else view.setVisibility(View.GONE);
     }
 
-    @BindingAdapter(value = {"setFlightDetails", "setFlightTime"})
-    public static void setFlightDetails(TextView textView, FlightModel flight, String time) {
+    @BindingAdapter("setFlightDetails")
+    public static void setFlightDetails(TextView textView, FlightModel flight) {
         String text = "No Flight is Selected. Please select flight.";
-        if (flight.get_id() != null) {
+        if (flight.get_id()!=null && !flight.get_id().equals("-1")) {
             text = "Flight No. : " + flight.getFlightNo() + "\n" +
                     "Flight Name : " + flight.getCompany() + "\n" +
                     "Price : " + flight.getPrice() + "\n" +
-                    "Flight Time : " + time;
+                    "Flight Time : " + HelperClass.getTime(flight.getDepartureTime());
         }
         textView.setText(text);
     }

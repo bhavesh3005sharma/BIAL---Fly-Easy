@@ -17,5 +17,6 @@ data class FlightModel(
         val status: String? = null,
         var selected: Boolean = false,
         val price: Int = 2514,
-        val logo: String? = null
+        val logo: String? = null,
+        var flightDate : String? =null
 ) : Serializable

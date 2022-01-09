@@ -1,6 +1,5 @@
 package com.fitnesshub.bial_flyeasy.models
 
-import android.os.Parcelable
 import java.io.Serializable
 
 data class TicketModel(
@@ -12,6 +11,6 @@ data class TicketModel(
     var datesOfJourney: List<String>? = null,
     var flightNos: List<String>? = null,
     var flights: List<FlightModel>? = null,
-    var food_details: List<List<FoodDetail>>? = null,
+    var food_details: List<FoodItems>? = null,
     var passengers: List<Passenger>? = null
 ) : Serializable
